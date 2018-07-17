@@ -1,10 +1,16 @@
 #include <nds9.h>
 #include <stdio.h>
+#include <porkmath.h>
+
+static const int blockBits = 6;
+static const int blockMask = (1 << blockBits) - 1;
+static const int blockCount = 1 << blockBits;
 
 volatile float x = 0.0;
-volatile float y = 0.0;
+volatile float y = 1.0;
 volatile float z = 0.0;
-volatile s16 rotateX = 0;
+volatile float rotateX = 0.0;
+int textures[blockCount];
 
 int main(void) {
 
@@ -30,45 +36,46 @@ int main(void) {
     glLoadIdentity();
     gluPerspective(70, 256.0 / 192.0, 0.1, 40);
 
-    gluLookAt(0.0, 0.0, 1.0, //camera position
-            0.0, 0.0, 0.0, //look at
-            0.0, 1.0, 0.0); //up
-
     while (1) {
         glPushMatrix();
 
         //move it away from the camera
-        glTranslatef32(0, 0, floattof32(-1));
+        //glTranslatef32(0, 0, floattof32(-1));
 
         //glRotateX(rotateX);
         //glRotateY(rotateY);
 
-        gluLookAt(0.0, 0.0, 1.0, //camera position
-                angleToDegrees(sinLerp(degreesToAngle(rotateX))) * 0.05, 0.0, 0.0, //look at
+        gluLookAt(x, y, z, //camera position
+                x + 1, y, z, //look at
                 0.0, 1.0, 0.0); //up
+        
+        glRotateZ(sinF(rotateX * 3.0) * 10.0);
+        glRotateY(rotateX);
 
         glMatrixMode(GL_MODELVIEW);
 
         //not a real gl function and will likely change
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
 
-        rotateX += 1;
+        rotateX += 0.5;
 
-        {
-            //draw the obj
-            glBegin(GL_QUAD);
+        for (int x = -5; x < 5; x++) {
+            for (int z = -5; z < 5; z++) {
+                //draw the obj
+                glBegin(GL_QUAD);
 
-            glColor3b(255, 0, 0);
-            glVertex3v16(inttov16(-1), inttov16(-1), 0);
+                glColor3b(255, 0, 0);
+                glVertex3v16(inttov16(x), 0, inttov16(z));
 
-            glColor3b(0, 255, 0);
-            glVertex3v16(inttov16(1), inttov16(-1), 0);
+                glColor3b(0, 255, 0);
+                glVertex3v16(inttov16(x + 1), 0, inttov16(z));
 
-            glColor3b(0, 0, 255);
-            glVertex3v16(inttov16(1), inttov16(1), 0);
+                glColor3b(0, 0, 255);
+                glVertex3v16(inttov16(x + 1), 0, inttov16(z + 1));
 
-            glColor3b(255, 0, 255);
-            glVertex3v16(inttov16(-1), inttov16(1), 0);
+                glColor3b(255, 0, 255);
+                glVertex3v16(inttov16(x), 0, inttov16(z + 1));
+            }
         }
 
         glEnd();
