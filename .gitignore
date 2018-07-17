@@ -1,0 +1,9 @@
+/build/
+/arm7/build/
+/arm9/build/
+*.nds
+*.elf
+/nbproject/
+*.iml
+*.ipr
+/.idea/
