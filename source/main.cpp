@@ -4,16 +4,15 @@
 
 //own classes
 #include "../include/util/porkmath.h"
+#include "../include/blocks.h"
 
 //textures
-#include <diamond_ore.h>
+#include <grass_top.h>
 
 volatile float pitch = 0.0;
 volatile float yaw = 0.0;
 
 int main() {
-    int textureID;
-
     //set mode 0, enable BG0 and set it to 3D
     videoSetMode(MODE_0_3D);
 
@@ -33,12 +32,9 @@ int main() {
 
     //this should work the same as the normal gl call
     glViewport(0, 0, 255, 191);
-
-    vramSetBankA(VRAM_A_TEXTURE);
-
-    glGenTextures(1, &textureID);
-    glBindTexture(0, textureID);
-    glTexImage2D(0, 0, GL_RGBA, TEXTURE_SIZE_16, TEXTURE_SIZE_16, 0, TEXGEN_TEXCOORD | GL_TEXTURE_WRAP_S | GL_TEXTURE_WRAP_T, (u8*) diamond_oreBitmap);
+    
+    //register block textures
+    initBlocks();
 
     //any floating point gl call is being converted to fixed prior to being implemented
     glMatrixMode(GL_PROJECTION);
@@ -72,7 +68,7 @@ int main() {
         if ((keys & KEY_LEFT)) yaw += 3;
         if ((keys & KEY_RIGHT)) yaw -= 3;
 
-        glBindTexture(0, textureID);
+        bindTex(COBBLESTONE);
 
         //draw the obj
         glBegin(GL_QUAD);
