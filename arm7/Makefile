@@ -17,7 +17,7 @@ include $(DEVKITARM)/ds_rules
 BUILD		:=	build
 SOURCES		:=	source  
 INCLUDES	:=	include build
-DATA		:=
+DATA		:=      data
  
 #---------------------------------------------------------------------------------
 # options for code generation

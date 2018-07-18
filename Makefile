@@ -10,12 +10,12 @@ export TOPDIR	:=	$(CURDIR)
 
 # specify a directory which contains the nitro filesystem
 # this is relative to the Makefile
-NITRO_FILES	:=
+NITRO_FILES	:= $(CURDIR)/nitrofs
 
 # These set the information text in the nds file
-#GAME_TITLE     := My Wonderful Homebrew
-#GAME_SUBTITLE1 := built with devkitARM
-#GAME_SUBTITLE2 := http://devitpro.org
+GAME_TITLE     := MineDS
+GAME_SUBTITLE1 := Made by DaPorkchop_
+GAME_SUBTITLE2 := https://daporkchop.net
 
 include $(DEVKITARM)/ds_rules
 
