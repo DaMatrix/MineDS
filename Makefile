@@ -48,7 +48,7 @@ LDFLAGS   = -specs=ds_arm9.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 #---------------------------------------------------------------------------------
 LIBS := -lnds9
 
-# automatigically add libraries for NitroFS
+# automagically add libraries for NitroFS
 ifneq ($(strip $(NITRO)),)
 LIBS := -lfilesystem -lfat $(LIBS)
 endif
