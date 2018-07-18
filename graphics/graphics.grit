@@ -1,0 +1,10 @@
+#enable texture mode
+-gx 
+
+#enable bitmap mode
+-gb 
+
+#required texture format
+-gB16
+
+-gT ff0000
