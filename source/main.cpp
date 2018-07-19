@@ -6,13 +6,11 @@
 #include "../include/util/porkmath.h"
 #include "../include/blocks.h"
 
-//textures
-#include <grass_top.h>
-
 volatile float pitch = 0.0;
 volatile float yaw = 0.0;
 
 int main() {
+    unsigned int tex = 0;
     //set mode 0, enable BG0 and set it to 3D
     videoSetMode(MODE_0_3D);
 
@@ -68,20 +66,20 @@ int main() {
         if ((keys & KEY_LEFT)) yaw += 3;
         if ((keys & KEY_RIGHT)) yaw -= 3;
 
-        bindTex(COBBLESTONE);
+        bindTex(((tex++) >> 4) % BLOCK_COUNT);
 
         //draw the obj
         glBegin(GL_QUAD);
         glNormal(NORMAL_PACK(0, inttov10(-1), 0));
 
-        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(0), inttot16(32)));
-        glVertex3v16(floattov16(-0.5), floattov16(-0.5), floattov16(-0.5));
-        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(32), inttot16(32)));
-        glVertex3v16(floattov16(0.5), floattov16(-0.5), floattov16(-0.5));
-        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(32), inttot16(0)));
-        glVertex3v16(floattov16(0.5), floattov16(0.5), floattov16(-0.5));
+        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(0), inttot16(16)));
+        glVertex3v16(floattov16(-0.5), floattov16(-0.5), floattov16(-1));
+        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(16), inttot16(16)));
+        glVertex3v16(floattov16(0.5), floattov16(-0.5), floattov16(-1));
+        GFX_TEX_COORD = (TEXTURE_PACK(inttot16(16), inttot16(0)));
+        glVertex3v16(floattov16(0.5), floattov16(0.5), floattov16(-1));
         GFX_TEX_COORD = (TEXTURE_PACK(inttot16(0), inttot16(0)));
-        glVertex3v16(floattov16(-0.5), floattov16(0.5), floattov16(-0.5));
+        glVertex3v16(floattov16(-0.5), floattov16(0.5), floattov16(-1));
 
         glEnd();
 
