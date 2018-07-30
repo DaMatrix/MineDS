@@ -31,7 +31,7 @@
 
 #include "common/math.h"
 
-#include "../include/game/ex_game.h"
+#include "game/ex_game.h"
 #include "menu/ex_menu.h"
 
 #include "lodepng.h"

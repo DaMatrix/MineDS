@@ -24,7 +24,7 @@
  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 #ifndef _FILETIME_H
 #define _FILETIME_H
@@ -32,10 +32,10 @@
 #include "common.h"
 #include <sys/types.h>
 
-uint16_t _FAT_filetime_getTimeFromRTC(void);
-uint16_t _FAT_filetime_getDateFromRTC(void);
+uint16_t _FAT_filetime_getTimeFromRTC (void);
+uint16_t _FAT_filetime_getDateFromRTC (void);
 
-time_t _FAT_filetime_to_time_t(uint16_t t, uint16_t d);
+time_t _FAT_filetime_to_time_t (uint16_t t, uint16_t d);
 
 
 #endif // _FILETIME_H

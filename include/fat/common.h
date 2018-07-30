@@ -24,7 +24,7 @@
  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 #ifndef _COMMON_H
 #define _COMMON_H
@@ -36,44 +36,44 @@
 
 // When compiling for NDS, make sure NDS is defined
 #ifndef NDS
-#if defined ARM9 || defined ARM7
-#define NDS
-#endif
+ #if defined ARM9 || defined ARM7
+  #define NDS
+ #endif
 #endif
 
 // Platform specific includes
 #if defined(__gamecube__) || defined (__wii__)
-#include <gctypes.h>
-#include <ogc/disc_io.h>
-#include <gccore.h>
+   #include <gctypes.h>
+   #include <ogc/disc_io.h>
+   #include <gccore.h>
 #elif defined(NDS)
-#include <nds/ndstypes.h>
-#include <nds/system.h>
-#include <nds/disc_io.h>
+   #include <nds/ndstypes.h>
+   #include <nds/system.h>
+   #include <nds/disc_io.h>
 #elif defined(GBA)
-#include <gba_types.h>
-#include <disc_io.h>
+   #include <gba_types.h>
+   #include <disc_io.h>
 #endif
 
 // Platform specific options
 #if   defined (__wii__)
-#define DEFAULT_CACHE_PAGES 4
-#define DEFAULT_SECTORS_PAGE 64
-#define USE_LWP_LOCK
-#define USE_RTC_TIME
+   #define DEFAULT_CACHE_PAGES 4
+   #define DEFAULT_SECTORS_PAGE 64
+   #define USE_LWP_LOCK
+   #define USE_RTC_TIME
 #elif defined (__gamecube__)
-#define DEFAULT_CACHE_PAGES 4
-#define DEFAULT_SECTORS_PAGE 64
-#define USE_LWP_LOCK
-#define USE_RTC_TIME
+   #define DEFAULT_CACHE_PAGES 4
+   #define DEFAULT_SECTORS_PAGE 64
+   #define USE_LWP_LOCK
+   #define USE_RTC_TIME
 #elif defined (NDS)
-#define DEFAULT_CACHE_PAGES 16
-#define DEFAULT_SECTORS_PAGE 8
-#define USE_RTC_TIME
+   #define DEFAULT_CACHE_PAGES 16
+   #define DEFAULT_SECTORS_PAGE 8
+   #define USE_RTC_TIME
 #elif defined (GBA)
-#define DEFAULT_CACHE_PAGES 2
-#define DEFAULT_SECTORS_PAGE 8
-#define LIMIT_SECTORS 128
+   #define DEFAULT_CACHE_PAGES 2
+   #define DEFAULT_SECTORS_PAGE 8
+   #define LIMIT_SECTORS 128
 #endif
 
 #endif // _COMMON_H

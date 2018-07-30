@@ -24,7 +24,7 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
- */
+*/
 
 #ifndef _LOCK_H
 #define _LOCK_H
@@ -33,20 +33,24 @@
 
 #ifdef USE_LWP_LOCK
 
-static inline void _FAT_lock_init(mutex_t *mutex) {
-    LWP_MutexInit(mutex, false);
+static inline void _FAT_lock_init(mutex_t *mutex)
+{
+	LWP_MutexInit(mutex, false);
 }
 
-static inline void _FAT_lock_deinit(mutex_t *mutex) {
-    LWP_MutexDestroy(*mutex);
+static inline void _FAT_lock_deinit(mutex_t *mutex)
+{
+	LWP_MutexDestroy(*mutex);
 }
 
-static inline void _FAT_lock(mutex_t *mutex) {
-    LWP_MutexLock(*mutex);
+static inline void _FAT_lock(mutex_t *mutex)
+{
+	LWP_MutexLock(*mutex);
 }
 
-static inline void _FAT_unlock(mutex_t *mutex) {
-    LWP_MutexUnlock(*mutex);
+static inline void _FAT_unlock(mutex_t *mutex)
+{
+	LWP_MutexUnlock(*mutex);
 }
 
 #else

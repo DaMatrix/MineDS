@@ -4,16 +4,18 @@
 #define GRAVITY 70
 #define BBSIZE 1000
 
-typedef struct {
-    vect3D position, vector, clusterCoord;
-    s16 angleZ, angleX;
-    u8 inWater, onLadder, inCave;
-} player_struct;
+typedef struct
+{
+	vect3D position, vector, clusterCoord;
+	s16 angleZ, angleX;
+	u8 inWater, onLadder, inCave;
+}player_struct;
 
-typedef struct {
-    u8 controls;
-    char texturePack[511];
-} settings_struct;
+typedef struct
+{
+	u8 controls;
+	char texturePack[511];
+}settings_struct;
 
 settings_struct gameSettings;
 

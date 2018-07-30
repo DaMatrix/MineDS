@@ -21,7 +21,7 @@ freely, subject to the following restrictions:
 
     3. This notice may not be removed or altered from any source
     distribution.
- */
+*/
 
 #ifndef LODEPNG_H
 #define LODEPNG_H
@@ -40,7 +40,7 @@ freely, subject to the following restrictions:
 /*
 The following #defines are used to create code sections. They can be disabled
 to disable code sections, which can give faster compile time and smaller binary.
- */
+*/
 
 #define LODEPNG_COMPILE_ZLIB             /*deflate&zlib encoder and deflate&zlib decoder*/
 #define LODEPNG_COMPILE_PNG              /*png encoder and png decoder*/
@@ -58,7 +58,7 @@ to disable code sections, which can give faster compile time and smaller binary.
 /*
 This are the simple C and C++ functions, which cover basic usage.
 Further on in the header file are the more advanced functions allowing custom behaviour.
- */
+*/
 
 #ifdef LODEPNG_COMPILE_PNG
 #ifdef LODEPNG_COMPILE_DECODER
@@ -74,7 +74,7 @@ insize: size of the in buffer.
 colorType: the desired color type for the raw output image. See explanation on PNG color types.
 bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
 Return value: LodePNG error code (0 means no error).
- */
+*/
 unsigned LodePNG_decode(unsigned char** out, unsigned* w, unsigned* h, const unsigned char* in, size_t insize, unsigned colorType, unsigned bitDepth); /*return value is error*/
 
 /*Same as LodePNG_decode, but uses colorType = 6 and bitDepth = 8 by default (32-bit RGBA)*/
@@ -95,7 +95,7 @@ filename: Path on disk of the PNG file.
 colorType: the desired color type for the raw output image. See explanation on PNG color types.
 bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
 Return value: LodePNG error code (0 means no error).
- */
+*/
 unsigned LodePNG_decode_file(unsigned char** out, unsigned* w, unsigned* h, const char* filename, unsigned colorType, unsigned bitDepth);
 
 /*Same as LodePNG_decode_file, but uses colorType = 6 and bitDepth = 8 by default (32-bit RGBA)*/
@@ -123,7 +123,7 @@ h: height of the raw pixel data in pixels.
 colorType: the color type of the raw input image. See explanation on PNG color types.
 bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
 Return value: LodePNG error code (0 means no error).
- */
+*/
 unsigned LodePNG_encode(unsigned char** out, size_t* outsize, const unsigned char* image, unsigned w, unsigned h, unsigned colorType, unsigned bitDepth); /*return value is error*/
 
 /*Same as LodePNG_encode, but uses colorType = 6 and bitDepth = 8 by default (32-bit RGBA).*/
@@ -145,7 +145,7 @@ h: height of the raw pixel data in pixels.
 colorType: the color type of the raw input image. See explanation on PNG color types.
 bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
 Return value: LodePNG error code (0 means no error).
- */
+*/
 unsigned LodePNG_encode_file(const char* filename, const unsigned char* image, unsigned w, unsigned h, unsigned colorType, unsigned bitDepth);
 
 /*Same as LodePNG_encode_file, but uses colorType = 6 and bitDepth = 8 by default (32-bit RGBS).*/
@@ -157,86 +157,87 @@ unsigned LodePNG_encode24_file(const char* filename, const unsigned char* image,
 #endif /*LODEPNG_COMPILE_ENCODER*/
 
 #ifdef __cplusplus
-namespace LodePNG {
+namespace LodePNG
+{
 
 #ifdef LODEPNG_COMPILE_DECODER
-    /*
-    Converts PNG data in memory to raw pixel data.
-    out: Output parameter, std::vector containing the raw pixel data. Its size
-      will be w * h * (bytes per pixel), where bytes per pixel is 4 if the default
-      colorType=6 and bitDepth=8 is used. The pixels are 32-bit RGBA bit in that case.
-    w: Output parameter, width of the image in pixels.
-    h: Output parameter, height of the image in pixels.
-    in: Memory buffer with the PNG file.
-    insize: size of the in buffer.
-    colorType: the desired color type for the raw output image. See explanation on PNG color types.
-    bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
-    Return value: LodePNG error code (0 means no error).
-     */
-    unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const unsigned char* in, size_t insize, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Converts PNG data in memory to raw pixel data.
+  out: Output parameter, std::vector containing the raw pixel data. Its size
+    will be w * h * (bytes per pixel), where bytes per pixel is 4 if the default
+    colorType=6 and bitDepth=8 is used. The pixels are 32-bit RGBA bit in that case.
+  w: Output parameter, width of the image in pixels.
+  h: Output parameter, height of the image in pixels.
+  in: Memory buffer with the PNG file.
+  insize: size of the in buffer.
+  colorType: the desired color type for the raw output image. See explanation on PNG color types.
+  bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
+  Return value: LodePNG error code (0 means no error).
+  */
+  unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const unsigned char* in, size_t insize, unsigned colorType = 6, unsigned bitDepth = 8);
 
-    /*
-    Same as the decode function that takes a unsigned char buffer, but instead of giving
-    a pointer and a size, this takes the input buffer as an std::vector.
-     */
-    unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const std::vector<unsigned char>& in, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Same as the decode function that takes a unsigned char buffer, but instead of giving
+  a pointer and a size, this takes the input buffer as an std::vector.
+  */
+  unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const std::vector<unsigned char>& in, unsigned colorType = 6, unsigned bitDepth = 8);
 #ifdef LODEPNG_COMPILE_DISK
-    /*
-    Converts PNG file from disk to raw pixel data in memory.
-    out: Output parameter, std::vector containing the raw pixel data. Its size
-      will be w * h * (bytes per pixel), where bytes per pixel is 4 if the default
-      colorType=6 and bitDepth=8 is used. The pixels are 32-bit RGBA bit in that case.
-    w: Output parameter, width of the image in pixels.
-    h: Output parameter, height of the image in pixels.
-    filename: Path to PNG file on disk.
-    colorType: the desired color type for the raw output image. See explanation on PNG color types.
-    bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
-    Return value: LodePNG error code (0 means no error).
-     */
-    unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const std::string& filename, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Converts PNG file from disk to raw pixel data in memory.
+  out: Output parameter, std::vector containing the raw pixel data. Its size
+    will be w * h * (bytes per pixel), where bytes per pixel is 4 if the default
+    colorType=6 and bitDepth=8 is used. The pixels are 32-bit RGBA bit in that case.
+  w: Output parameter, width of the image in pixels.
+  h: Output parameter, height of the image in pixels.
+  filename: Path to PNG file on disk.
+  colorType: the desired color type for the raw output image. See explanation on PNG color types.
+  bitDepth: the desired bit depth for the raw output image. See explanation on PNG color types.
+  Return value: LodePNG error code (0 means no error).
+  */
+  unsigned decode(std::vector<unsigned char>& out, unsigned& w, unsigned& h, const std::string& filename, unsigned colorType = 6, unsigned bitDepth = 8);
 #endif //LODEPNG_COMPILE_DISK
 #endif //LODEPNG_COMPILE_DECODER
 
 #ifdef LODEPNG_COMPILE_ENCODER
-    /*
-    Converts 32-bit RGBA raw pixel data into a PNG image in memory.
-    out: Output parameter, std::vector containing the PNG image data.
-    in: Memory buffer with raw pixel data. The size of this buffer should be
-         w * h * (bytes per pixel), With the default colorType=6 and bitDepth=8, bytes
-         per pixel should be 4 and the data is a 32-bit RGBA pixel buffer.
-    w: Width of the image in pixels.
-    h: Height of the image in pixels.
-    colorType: the color type of the raw input image. See explanation on PNG color types.
-    bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
-    Return value: LodePNG error code (0 means no error).
-     */
-    unsigned encode(std::vector<unsigned char>& out, const unsigned char* in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Converts 32-bit RGBA raw pixel data into a PNG image in memory.
+  out: Output parameter, std::vector containing the PNG image data.
+  in: Memory buffer with raw pixel data. The size of this buffer should be
+       w * h * (bytes per pixel), With the default colorType=6 and bitDepth=8, bytes
+       per pixel should be 4 and the data is a 32-bit RGBA pixel buffer.
+  w: Width of the image in pixels.
+  h: Height of the image in pixels.
+  colorType: the color type of the raw input image. See explanation on PNG color types.
+  bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
+  Return value: LodePNG error code (0 means no error).
+  */
+  unsigned encode(std::vector<unsigned char>& out, const unsigned char* in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
 
-    /*
-    Same as the encode function that takes a unsigned char buffer, but instead of giving
-    a pointer and a size, this takes the input buffer as an std::vector.
-     */
-    unsigned encode(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Same as the encode function that takes a unsigned char buffer, but instead of giving
+  a pointer and a size, this takes the input buffer as an std::vector.
+  */
+  unsigned encode(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
 #ifdef LODEPNG_COMPILE_DISK
-    /*
-    Converts 32-bit RGBA raw pixel data into a PNG file on disk.
-    filename: Path to the file to write the PNG image to.
-    in: Memory buffer with raw pixel data. The size of this buffer should be
-         w * h * (bytes per pixel), With the default colorType=6 and bitDepth=8, bytes
-         per pixel should be 4 and the data is a 32-bit RGBA pixel buffer.
-    w: Width of the image in pixels.
-    h: Height of the image in pixels.
-    colorType: the color type of the raw input image. See explanation on PNG color types.
-    bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
-    Return value: LodePNG error code (0 means no error).
-     */
-    unsigned encode(const std::string& filename, const unsigned char* in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Converts 32-bit RGBA raw pixel data into a PNG file on disk.
+  filename: Path to the file to write the PNG image to.
+  in: Memory buffer with raw pixel data. The size of this buffer should be
+       w * h * (bytes per pixel), With the default colorType=6 and bitDepth=8, bytes
+       per pixel should be 4 and the data is a 32-bit RGBA pixel buffer.
+  w: Width of the image in pixels.
+  h: Height of the image in pixels.
+  colorType: the color type of the raw input image. See explanation on PNG color types.
+  bitDepth: the bit depth of the raw input image. See explanation on PNG color types.
+  Return value: LodePNG error code (0 means no error).
+  */
+  unsigned encode(const std::string& filename, const unsigned char* in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
 
-    /*
-    Same as the encode function that takes a unsigned char buffer, but instead of giving
-    a pointer and a size, this takes the input buffer as an std::vector.
-     */
-    unsigned encode(const std::string& filename, const std::vector<unsigned char>& in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
+  /*
+  Same as the encode function that takes a unsigned char buffer, but instead of giving
+  a pointer and a size, this takes the input buffer as an std::vector.
+  */
+  unsigned encode(const std::string& filename, const std::vector<unsigned char>& in, unsigned w, unsigned h, unsigned colorType = 6, unsigned bitDepth = 8);
 #endif //LODEPNG_COMPILE_DISK
 #endif //LODEPNG_COMPILE_ENCODER
 } //namespace LodePNG
@@ -247,7 +248,7 @@ namespace LodePNG {
 /*
 Returns a textual description of the error code, in English. The
 numerical value of the code itself is not included in this description.
- */
+*/
 const char* LodePNG_error_text(unsigned code);
 #endif /*LODEPNG_COMPILE_ERROR_TEXT*/
 
@@ -258,12 +259,12 @@ const char* LodePNG_error_text(unsigned code);
 /*
 These structs contain settings for the decompression and compression of the
 PNG files. Typically you won't need these directly.
- */
+*/
 
 #ifdef LODEPNG_COMPILE_DECODER
-
-typedef struct LodeZlib_DecompressSettings {
-    unsigned ignoreAdler32; /*if 1, continue and don't give an error message if the Adler32 checksum is corrupted*/
+typedef struct LodeZlib_DecompressSettings
+{
+  unsigned ignoreAdler32; /*if 1, continue and don't give an error message if the Adler32 checksum is corrupted*/
 } LodeZlib_DecompressSettings;
 
 extern const LodeZlib_DecompressSettings LodeZlib_defaultDecompressSettings;
@@ -271,16 +272,16 @@ void LodeZlib_DecompressSettings_init(LodeZlib_DecompressSettings* settings);
 #endif /*LODEPNG_COMPILE_DECODER*/
 
 #ifdef LODEPNG_COMPILE_ENCODER
-
 /*
 Compression settings. Tweaking these settings tweaks the balance between
 speed and compression ratio.
- */
-typedef struct LodeZlib_CompressSettings /*deflate = compress*/ {
-    /*LZ77 related settings*/
-    unsigned btype; /*the block type for LZ (0, 1, 2 or 3, see zlib standard). Should be 2 for proper compression.*/
-    unsigned useLZ77; /*whether or not to use LZ77. Should be 1 for proper compression.*/
-    unsigned windowSize; /*the maximum is 32768, higher gives more compression but is slower. Typical value: 2048.*/
+*/
+typedef struct LodeZlib_CompressSettings /*deflate = compress*/
+{
+  /*LZ77 related settings*/
+  unsigned btype; /*the block type for LZ (0, 1, 2 or 3, see zlib standard). Should be 2 for proper compression.*/
+  unsigned useLZ77; /*whether or not to use LZ77. Should be 1 for proper compression.*/
+  unsigned windowSize; /*the maximum is 32768, higher gives more compression but is slower. Typical value: 2048.*/
 } LodeZlib_CompressSettings;
 
 extern const LodeZlib_CompressSettings LodeZlib_defaultCompressSettings;
@@ -296,42 +297,43 @@ void LodeZlib_CompressSettings_init(LodeZlib_CompressSettings* settings);
 Info about the color type of an image.
 The same LodePNG_InfoColor struct is used for both the PNG and raw image type,
 even though they are two totally different things.
- */
-typedef struct LodePNG_InfoColor {
-    /*header (IHDR)*/
-    unsigned colorType; /*color type, see PNG standard or documentation further in this header file*/
-    unsigned bitDepth; /*bits per sample, see PNG standard or documentation further in this header file*/
+*/
+typedef struct LodePNG_InfoColor
+{
+  /*header (IHDR)*/
+  unsigned colorType; /*color type, see PNG standard or documentation further in this header file*/
+  unsigned bitDepth;  /*bits per sample, see PNG standard or documentation further in this header file*/
 
-    /*
-    palette (PLTE and tRNS)
+  /*
+  palette (PLTE and tRNS)
 
-    This is a dynamically allocated unsigned char array with the colors of the palette, including alpha.
-    The value palettesize indicates the amount of colors in the palette.
-    The allocated size of the buffer is 4 * palettesize bytes, in order RGBARGBARGBA...
+  This is a dynamically allocated unsigned char array with the colors of the palette, including alpha.
+  The value palettesize indicates the amount of colors in the palette.
+  The allocated size of the buffer is 4 * palettesize bytes, in order RGBARGBARGBA...
 
-    When encoding a PNG, to store your colors in the palette of the LodePNG_InfoRaw, first use
-    LodePNG_InfoColor_clearPalette, then for each color use LodePNG_InfoColor_addPalette.
+  When encoding a PNG, to store your colors in the palette of the LodePNG_InfoRaw, first use
+  LodePNG_InfoColor_clearPalette, then for each color use LodePNG_InfoColor_addPalette.
 
-    If you encode an image without alpha with palette, don't forget to put value 255 in each A byte of the palette.
+  If you encode an image without alpha with palette, don't forget to put value 255 in each A byte of the palette.
 
-    When decoding, by default you can ignore this palette, since LodePNG already
-    fills the palette colors in the pixels of the raw RGBA output.
-     */
-    unsigned char* palette; /*palette in RGBARGBA... order*/
-    size_t palettesize; /*palette size in number of colors (amount of bytes is 4 * palettesize)*/
+  When decoding, by default you can ignore this palette, since LodePNG already
+  fills the palette colors in the pixels of the raw RGBA output.
+  */
+  unsigned char* palette; /*palette in RGBARGBA... order*/
+  size_t palettesize; /*palette size in number of colors (amount of bytes is 4 * palettesize)*/
 
-    /*
-    transparent color key (tRNS)
-    This color uses the same bit depth as the bitDepth value in this struct, which can be 1-bit to 16-bit.
-    For greyscale PNGs, r, g and b will all 3 be set to the same.
+  /*
+  transparent color key (tRNS)
+  This color uses the same bit depth as the bitDepth value in this struct, which can be 1-bit to 16-bit.
+  For greyscale PNGs, r, g and b will all 3 be set to the same.
 
-    When decoding, by default you can ignore this information, since LodePNG sets
-    pixels with this key to transparent already in the raw RGBA output.
-     */
-    unsigned key_defined; /*is a transparent color key given? 0 = false, 1 = true*/
-    unsigned key_r; /*red/greyscale component of color key*/
-    unsigned key_g; /*green component of color key*/
-    unsigned key_b; /*blue component of color key*/
+  When decoding, by default you can ignore this information, since LodePNG sets
+  pixels with this key to transparent already in the raw RGBA output.
+  */
+  unsigned key_defined; /*is a transparent color key given? 0 = false, 1 = true*/
+  unsigned key_r;       /*red/greyscale component of color key*/
+  unsigned key_g;       /*green component of color key*/
+  unsigned key_b;       /*blue component of color key*/
 } LodePNG_InfoColor;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -344,11 +346,11 @@ void LodePNG_InfoColor_clearPalette(LodePNG_InfoColor* info);
 unsigned LodePNG_InfoColor_addPalette(LodePNG_InfoColor* info, unsigned char r, unsigned char g, unsigned char b, unsigned char a); /*add 1 color to the palette*/
 
 /*additional color info*/
-unsigned LodePNG_InfoColor_getBpp(const LodePNG_InfoColor* info); /*get the total amount of bits per pixel, based on colorType and bitDepth in the struct*/
+unsigned LodePNG_InfoColor_getBpp(const LodePNG_InfoColor* info);      /*get the total amount of bits per pixel, based on colorType and bitDepth in the struct*/
 unsigned LodePNG_InfoColor_getChannels(const LodePNG_InfoColor* info); /*get the amount of color channels used, based on colorType in the struct. If a palette is used, it counts as 1 channel.*/
 unsigned LodePNG_InfoColor_isGreyscaleType(const LodePNG_InfoColor* info); /*is it a greyscale type? (only colorType 0 or 4)*/
-unsigned LodePNG_InfoColor_isAlphaType(const LodePNG_InfoColor* info); /*has it got an alpha channel? (only colorType 2 or 6)*/
-unsigned LodePNG_InfoColor_isPaletteType(const LodePNG_InfoColor* info); /*has it got a palette? (only colorType 3)*/
+unsigned LodePNG_InfoColor_isAlphaType(const LodePNG_InfoColor* info);     /*has it got an alpha channel? (only colorType 2 or 6)*/
+unsigned LodePNG_InfoColor_isPaletteType(const LodePNG_InfoColor* info);   /*has it got a palette? (only colorType 3)*/
 unsigned LodePNG_InfoColor_hasPaletteAlpha(const LodePNG_InfoColor* info); /*only returns true if there is a palette and there is a value in the palette with alpha < 255. Loops through the palette to check this.*/
 
 /*
@@ -356,24 +358,24 @@ Check if the given color info indicates the possibility of having non-opaque pix
 Returns true if the image can have translucent or invisible pixels (it still be opaque if it doesn't use such pixels).
 Returns false if the image can only have opaque pixels.
 In detail, it returns true only if it's a color type with alpha, or has a palette with non-opaque values, or if "key_defined" is true.
- */
+*/
 unsigned LodePNG_InfoColor_canHaveAlpha(const LodePNG_InfoColor* info);
 
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-
 /*
 The information of a Time chunk in PNG.
 To make the encoder add a time chunk, set time_defined to 1 and fill in
 the correct values in all the time parameters. LodePNG will not fill the current
 time in these values itself, all it does is copy them over into the chunk bytes.
- */
-typedef struct LodePNG_Time {
-    unsigned year; /*2 bytes used (0-65535)*/
-    unsigned char month; /*1-12*/
-    unsigned char day; /*1-31*/
-    unsigned char hour; /*0-23*/
-    unsigned char minute; /*0-59*/
-    unsigned char second; /*0-60 (to allow for leap seconds)*/
+*/
+typedef struct LodePNG_Time
+{
+  unsigned      year;    /*2 bytes used (0-65535)*/
+  unsigned char month;   /*1-12*/
+  unsigned char day;     /*1-31*/
+  unsigned char hour;    /*0-23*/
+  unsigned char minute;  /*0-59*/
+  unsigned char second;  /*0-60 (to allow for leap seconds)*/
 } LodePNG_Time;
 
 /*
@@ -388,13 +390,14 @@ Software, Disclaimer, Warning, Source, Comment. It's allowed to use other keys.
 
 A keyword is minimum 1 character and maximum 79 characters long. It's
 discouraged to use a single line length longer than 79 characters for texts.
- */
-typedef struct LodePNG_Text /*non-international text*/ {
-    /*Don't allocate these text buffers yourself. Use the init/cleanup functions
-    correctly and use LodePNG_Text_add and LodePNG_Text_clear.*/
-    size_t num; /*the amount of texts in these char** buffers (there may be more texts in itext)*/
-    char** keys; /*the keyword of a text chunk (e.g. "Comment")*/
-    char** strings; /*the actual text*/
+*/
+typedef struct LodePNG_Text /*non-international text*/
+{
+  /*Don't allocate these text buffers yourself. Use the init/cleanup functions
+  correctly and use LodePNG_Text_add and LodePNG_Text_clear.*/
+  size_t num; /*the amount of texts in these char** buffers (there may be more texts in itext)*/
+  char** keys; /*the keyword of a text chunk (e.g. "Comment")*/
+  char** strings; /*the actual text*/
 } LodePNG_Text;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -413,15 +416,16 @@ The amount of strings ends when the pointer to the string is a null pointer.
 
 A keyword is minimum 1 character and maximum 79 characters long. It's
 discouraged to use a single line length longer than 79 characters for texts.
- */
-typedef struct LodePNG_IText /*international text*/ {
-    /*Don't allocate these text buffers yourself. Use the init/cleanup functions
-    correctly and use LodePNG_IText_add and LodePNG_IText_clear.*/
-    size_t num; /*the amount of international texts in this PNG*/
-    char** keys; /*the English keyword of the text chunk (e.g. "Comment")*/
-    char** langtags; /*the language tag for this text's international language, ISO/IEC 646 string, e.g. ISO 639 language tag*/
-    char** transkeys; /*keyword translated to the international language - UTF-8 string*/
-    char** strings; /*the actual international text - UTF-8 string*/
+*/
+typedef struct LodePNG_IText /*international text*/
+{
+  /*Don't allocate these text buffers yourself. Use the init/cleanup functions
+  correctly and use LodePNG_IText_add and LodePNG_IText_clear.*/
+  size_t num; /*the amount of international texts in this PNG*/
+  char** keys; /*the English keyword of the text chunk (e.g. "Comment")*/
+  char** langtags; /*the language tag for this text's international language, ISO/IEC 646 string, e.g. ISO 639 language tag*/
+  char** transkeys; /*keyword translated to the international language - UTF-8 string*/
+  char** strings; /*the actual international text - UTF-8 string*/
 } LodePNG_IText;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -435,22 +439,22 @@ unsigned LodePNG_IText_add(LodePNG_IText* text, const char* key, const char* lan
 #endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
 
 #ifdef LODEPNG_COMPILE_UNKNOWN_CHUNKS
-
 /*
 Unknown chunks read from the PNG, or extra chunks the user wants to have added
 in the encoded PNG.
- */
-typedef struct LodePNG_UnknownChunks {
-    /*There are 3 buffers, one for each position in the PNG where unknown chunks can appear
-      each buffer contains all unknown chunks for that position consecutively
-      The 3 buffers are the unknown chunks between certain critical chunks:
-      0: IHDR-PLTE, 1: PLTE-IDAT, 2: IDAT-IEND
+*/
+typedef struct LodePNG_UnknownChunks
+{
+  /*There are 3 buffers, one for each position in the PNG where unknown chunks can appear
+    each buffer contains all unknown chunks for that position consecutively
+    The 3 buffers are the unknown chunks between certain critical chunks:
+    0: IHDR-PLTE, 1: PLTE-IDAT, 2: IDAT-IEND
 
-      Do not allocate or traverse this data yourself. Use the chunk traversing functions declared
-      later, such as LodePNG_chunk_next and LodePNG_append_chunk, to read/write this struct.
-     */
-    unsigned char* data[3];
-    size_t datasize[3]; /*size in bytes of the unknown chunks, given for protection*/
+    Do not allocate or traverse this data yourself. Use the chunk traversing functions declared
+    later, such as LodePNG_chunk_next and LodePNG_append_chunk, to read/write this struct.
+    */
+  unsigned char* data[3];
+  size_t datasize[3]; /*size in bytes of the unknown chunks, given for protection*/
 
 } LodePNG_UnknownChunks;
 
@@ -462,59 +466,60 @@ unsigned LodePNG_UnknownChunks_copy(LodePNG_UnknownChunks* dest, const LodePNG_U
 
 /*
 Information about the PNG image, except pixels and sometimes except width and height.
- */
-typedef struct LodePNG_InfoPng {
-    /*header (IHDR), palette (PLTE) and transparency (tRNS)*/
+*/
+typedef struct LodePNG_InfoPng
+{
+  /*header (IHDR), palette (PLTE) and transparency (tRNS)*/
 
-    /*
-    Note: width and height are only used as information of a decoded PNG image. When encoding one, you don't have
-    to specify width and height in an LodePNG_Info struct, but you give them as parameters of the encode function.
-    The rest of the LodePNG_Info struct IS used by the encoder though!
-     */
-    unsigned width; /*width of the image in pixels (ignored by encoder, but filled in by decoder)*/
-    unsigned height; /*height of the image in pixels (ignored by encoder, but filled in by decoder)*/
-    unsigned compressionMethod; /*compression method of the original file. Always 0.*/
-    unsigned filterMethod; /*filter method of the original file*/
-    unsigned interlaceMethod; /*interlace method of the original file*/
-    LodePNG_InfoColor color; /*color type and bits, palette and transparency of the PNG file*/
+  /*
+  Note: width and height are only used as information of a decoded PNG image. When encoding one, you don't have
+  to specify width and height in an LodePNG_Info struct, but you give them as parameters of the encode function.
+  The rest of the LodePNG_Info struct IS used by the encoder though!
+  */
+  unsigned width;             /*width of the image in pixels (ignored by encoder, but filled in by decoder)*/
+  unsigned height;            /*height of the image in pixels (ignored by encoder, but filled in by decoder)*/
+  unsigned compressionMethod; /*compression method of the original file. Always 0.*/
+  unsigned filterMethod;      /*filter method of the original file*/
+  unsigned interlaceMethod;   /*interlace method of the original file*/
+  LodePNG_InfoColor color;    /*color type and bits, palette and transparency of the PNG file*/
 
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-    /*
-    suggested background color (bKGD)
-    This color uses the same bit depth as the bitDepth value in this struct, which can be 1-bit to 16-bit.
+  /*
+  suggested background color (bKGD)
+  This color uses the same bit depth as the bitDepth value in this struct, which can be 1-bit to 16-bit.
 
-    For greyscale PNGs, r, g and b will all 3 be set to the same. When encoding
-    the encoder writes the red one. For palette PNGs: When decoding, the RGB value
-    will be stored, not a palette index. But when encoding, specify the index of
-    the palette in background_r, the other two are then ignored.
+  For greyscale PNGs, r, g and b will all 3 be set to the same. When encoding
+  the encoder writes the red one. For palette PNGs: When decoding, the RGB value
+  will be stored, not a palette index. But when encoding, specify the index of
+  the palette in background_r, the other two are then ignored.
 
-    The decoder does not use this background color to edit the color of pixels.
-     */
-    unsigned background_defined; /*is a suggested background color given?*/
-    unsigned background_r; /*red component of suggested background color*/
-    unsigned background_g; /*green component of suggested background color*/
-    unsigned background_b; /*blue component of suggested background color*/
+  The decoder does not use this background color to edit the color of pixels.
+  */
+  unsigned background_defined; /*is a suggested background color given?*/
+  unsigned background_r;       /*red component of suggested background color*/
+  unsigned background_g;       /*green component of suggested background color*/
+  unsigned background_b;       /*blue component of suggested background color*/
 
-    /*non-international text chunks (tEXt and zTXt)*/
-    LodePNG_Text text;
+  /*non-international text chunks (tEXt and zTXt)*/
+  LodePNG_Text text;
 
-    /*international text chunks (iTXt)*/
-    LodePNG_IText itext;
+  /*international text chunks (iTXt)*/
+  LodePNG_IText itext;
 
-    /*time chunk (tIME)*/
-    unsigned char time_defined; /*if 0, no tIME chunk was or will be generated in the PNG image*/
-    LodePNG_Time time;
+  /*time chunk (tIME)*/
+  unsigned char time_defined; /*if 0, no tIME chunk was or will be generated in the PNG image*/
+  LodePNG_Time time;
 
-    /*phys chunk (pHYs)*/
-    unsigned phys_defined; /*if 0, there is no pHYs chunk and the values below are undefined, if 1 else there is one*/
-    unsigned phys_x; /*pixels per unit in x direction*/
-    unsigned phys_y; /*pixels per unit in y direction*/
-    unsigned char phys_unit; /*may be 0 (unknown unit) or 1 (metre)*/
+  /*phys chunk (pHYs)*/
+  unsigned      phys_defined; /*if 0, there is no pHYs chunk and the values below are undefined, if 1 else there is one*/
+  unsigned      phys_x; /*pixels per unit in x direction*/
+  unsigned      phys_y; /*pixels per unit in y direction*/
+  unsigned char phys_unit; /*may be 0 (unknown unit) or 1 (metre)*/
 #endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
 
 #ifdef LODEPNG_COMPILE_UNKNOWN_CHUNKS
-    /*unknown chunks*/
-    LodePNG_UnknownChunks unknown_chunks;
+  /*unknown chunks*/
+  LodePNG_UnknownChunks unknown_chunks;
 #endif /*LODEPNG_COMPILE_UNKNOWN_CHUNKS*/
 } LodePNG_InfoPng;
 
@@ -527,9 +532,10 @@ unsigned LodePNG_InfoPng_copy(LodePNG_InfoPng* dest, const LodePNG_InfoPng* sour
 Contains user-chosen information about the raw image data, which is independent of the PNG image
 With raw images, I mean the image data in the form of the simple raw buffer to which the
 compressed PNG data is decoded, or from which a PNG image can be encoded.
- */
-typedef struct LodePNG_InfoRaw {
-    LodePNG_InfoColor color; /*color info of the raw image, note that the same struct as for PNG data is used.*/
+*/
+typedef struct LodePNG_InfoRaw
+{
+  LodePNG_InfoColor color; /*color info of the raw image, note that the same struct as for PNG data is used.*/
 } LodePNG_InfoRaw;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -544,7 +550,7 @@ See the reference manual at the end of this header file to see which color conve
 return value = LodePNG error code (0 if all went ok, an error if the conversion isn't supported)
 The out buffer must have size (w * h * bpp + 7) / 8, where bpp is the bits per pixel
 of the output color type (LodePNG_InfoColor_getBpp)
- */
+*/
 unsigned LodePNG_convert(unsigned char* out, const unsigned char* in, LodePNG_InfoColor* infoOut, LodePNG_InfoColor* infoIn, unsigned w, unsigned h);
 
 #ifdef LODEPNG_COMPILE_DECODER
@@ -556,19 +562,20 @@ unsigned LodePNG_convert(unsigned char* out, const unsigned char* in, LodePNG_In
 /*
 Settings for the decoder. This contains settings for the PNG and the Zlib
 decoder, but not the Info settings from the Info structs.
- */
-typedef struct LodePNG_DecodeSettings {
-    LodeZlib_DecompressSettings zlibsettings; /*in here is the setting to ignore Adler32 checksums*/
+*/
+typedef struct LodePNG_DecodeSettings
+{
+  LodeZlib_DecompressSettings zlibsettings; /*in here is the setting to ignore Adler32 checksums*/
 
-    unsigned ignoreCrc; /*ignore CRC checksums*/
-    unsigned color_convert; /*whether to convert the PNG to the color type you want. Default: yes*/
+  unsigned ignoreCrc; /*ignore CRC checksums*/
+  unsigned color_convert; /*whether to convert the PNG to the color type you want. Default: yes*/
 
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-    unsigned readTextChunks; /*if false but rememberUnknownChunks is true, they're stored in the unknown chunks*/
+  unsigned readTextChunks; /*if false but rememberUnknownChunks is true, they're stored in the unknown chunks*/
 #endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
 
 #ifdef LODEPNG_COMPILE_UNKNOWN_CHUNKS
-    unsigned rememberUnknownChunks; /*store all bytes from unknown chunks in the InfoPng (off by default, useful for a png editor)*/
+  unsigned rememberUnknownChunks; /*store all bytes from unknown chunks in the InfoPng (off by default, useful for a png editor)*/
 #endif /*LODEPNG_COMPILE_UNKNOWN_CHUNKS*/
 } LodePNG_DecodeSettings;
 
@@ -578,12 +585,13 @@ void LodePNG_DecodeSettings_init(LodePNG_DecodeSettings* settings);
 The LodePNG_Decoder struct has most input and output parameters the decoder uses,
 such as the settings, the info of the PNG and the raw data, and the error. Only
 the pixel buffer is not contained in this struct.
- */
-typedef struct LodePNG_Decoder {
-    LodePNG_DecodeSettings settings; /*the decoding settings*/
-    LodePNG_InfoRaw infoRaw; /*specifies the format in which you would like to get the raw pixel buffer*/
-    LodePNG_InfoPng infoPng; /*info of the PNG image obtained after decoding*/
-    unsigned error;
+*/
+typedef struct LodePNG_Decoder
+{
+  LodePNG_DecodeSettings settings; /*the decoding settings*/
+  LodePNG_InfoRaw infoRaw; /*specifies the format in which you would like to get the raw pixel buffer*/
+  LodePNG_InfoPng infoPng; /*info of the PNG image obtained after decoding*/
+  unsigned error;
 } LodePNG_Decoder;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -597,14 +605,14 @@ This function allocates the out buffer and stores the size in *outsize. This buf
 needs to be freed after usage.
 Other information about the PNG file, such as the size, colorType and extra chunks
 are stored in the infoPng field of the LodePNG_Decoder.
- */
+*/
 void LodePNG_Decoder_decode(LodePNG_Decoder* decoder, unsigned char** out, size_t* outsize, const unsigned char* in, size_t insize);
 
 /*
 Read the PNG header, but not the actual data. This returns only the information
 that is in the header chunk of the PNG, such as width, height and color type. The
 information is placed in the infoPng field of the LodePNG_Decoder.
- */
+*/
 void LodePNG_Decoder_inspect(LodePNG_Decoder* decoder, const unsigned char* in, size_t insize); /*read the png header*/
 #endif /*LODEPNG_COMPILE_DECODER*/
 
@@ -614,14 +622,15 @@ void LodePNG_Decoder_inspect(LodePNG_Decoder* decoder, const unsigned char* in, 
 /* ////////////////////////////////////////////////////////////////////////// */
 
 /*Settings for the encoder.*/
-typedef struct LodePNG_EncodeSettings {
-    LodeZlib_CompressSettings zlibsettings; /*settings for the zlib encoder, such as window size, ...*/
+typedef struct LodePNG_EncodeSettings
+{
+  LodeZlib_CompressSettings zlibsettings; /*settings for the zlib encoder, such as window size, ...*/
 
-    unsigned autoLeaveOutAlphaChannel; /*automatically use color type without alpha instead of given one, if given image is opaque*/
-    unsigned force_palette; /*force creating a PLTE chunk if colortype is 2 or 6 (= a suggested palette). If colortype is 3, PLTE is _always_ created.*/
+  unsigned autoLeaveOutAlphaChannel; /*automatically use color type without alpha instead of given one, if given image is opaque*/
+  unsigned force_palette; /*force creating a PLTE chunk if colortype is 2 or 6 (= a suggested palette). If colortype is 3, PLTE is _always_ created.*/
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-    unsigned add_id; /*add LodePNG version as text chunk*/
-    unsigned text_compression; /*encode text chunks as zTXt chunks instead of tEXt chunks, and use compression in iTXt chunks*/
+  unsigned add_id; /*add LodePNG version as text chunk*/
+  unsigned text_compression; /*encode text chunks as zTXt chunks instead of tEXt chunks, and use compression in iTXt chunks*/
 #endif /*LODEPNG_COMPILE_ANCILLARY_CHUNKS*/
 } LodePNG_EncodeSettings;
 
@@ -631,12 +640,13 @@ void LodePNG_EncodeSettings_init(LodePNG_EncodeSettings* settings);
 This struct has most input and output parameters the encoder uses,
 such as the settings, the info of the PNG and the raw data, and the error. Only
 the pixel buffer is not contained in this struct.
- */
-typedef struct LodePNG_Encoder {
-    LodePNG_EncodeSettings settings; /*compression settings of the encoder*/
-    LodePNG_InfoPng infoPng; /*the info specified by the user is not changed by the encoder. The encoder will try to generate a PNG close to the given info.*/
-    LodePNG_InfoRaw infoRaw; /*put the properties of the input raw image in here*/
-    unsigned error; /*error value filled in if error happened, or 0 if all went ok*/
+*/
+typedef struct LodePNG_Encoder
+{
+  LodePNG_EncodeSettings settings; /*compression settings of the encoder*/
+  LodePNG_InfoPng infoPng; /*the info specified by the user is not changed by the encoder. The encoder will try to generate a PNG close to the given info.*/
+  LodePNG_InfoRaw infoRaw; /*put the properties of the input raw image in here*/
+  unsigned error; /*error value filled in if error happened, or 0 if all went ok*/
 } LodePNG_Encoder;
 
 /*init, cleanup and copy functions to use with this struct*/
@@ -658,7 +668,7 @@ These functions need as input a large enough amount of allocated memory.
 These functions can be used on raw PNG data, but they are exposed in the API
 because they are needed if you want to traverse the unknown chunks stored
 in the LodePNG_UnknownChunks struct, or add new ones to it.
- */
+*/
 
 /*get the length of the data of the chunk. Total chunk length has 12 bytes more.*/
 unsigned LodePNG_chunk_length(const unsigned char* chunk);
@@ -672,7 +682,7 @@ unsigned char LodePNG_chunk_type_equals(const unsigned char* chunk, const char* 
 /*
 These functions get properties of PNG chunks gotten from capitalization of chunk
 type name, as defined by the PNG standard.
- */
+*/
 
 /*0: ancillary chunk, 1: it's one of the critical chunk types*/
 unsigned char LodePNG_chunk_critical(const unsigned char* chunk);
@@ -703,7 +713,7 @@ const unsigned char* LodePNG_chunk_next_const(const unsigned char* chunk);
 Appends chunk to the data in out. The given chunk should already have its chunk header.
 The out variable and outlength are updated to reflect the new reallocated buffer.
 Returns error code (0 if it went ok)
- */
+*/
 unsigned LodePNG_append_chunk(unsigned char** out, size_t* outlength, const unsigned char* chunk);
 
 /*
@@ -711,7 +721,7 @@ Appends new chunk to out. The chunk to append is given by giving its length, typ
 and data separately. The type is a 4-letter string.
 The out variable and outlength are updated to reflect the new reallocated buffer.
 Returne error code (0 if it went ok)
- */
+*/
 unsigned LodePNG_create_chunk(unsigned char** out, size_t* outlength, unsigned length, const char* type, const unsigned char* data);
 #endif /*LODEPNG_COMPILE_PNG*/
 
@@ -726,7 +736,7 @@ This is "LodeZlib". A C++ wrapper is available further on.
 LodeZlib can be used to zlib compress and decompress a buffer. It cannot be
 used to create gzip files however, and it only supports the part of zlib
 that is required for PNG, it does not support dictionaries.
- */
+*/
 
 #ifdef LODEPNG_COMPILE_DECODER
 /*Decompresses Zlib data. Reallocates the out buffer and appends the data.
@@ -749,7 +759,7 @@ out: output parameter, contains pointer to loaded buffer.
 outsize: output parameter, size of the allocated out buffer
 filename: the path to the file to load
 return value: error code (0 means ok)
- */
+*/
 unsigned LodePNG_loadFile(unsigned char** out, size_t* outsize, const char* filename);
 
 /*
@@ -758,7 +768,7 @@ buffer: the buffer to write
 buffersize: size of the buffer to write
 filename: the path to the file to save to
 return value: error code (0 means ok)
- */
+*/
 unsigned LodePNG_saveFile(const unsigned char* buffer, size_t buffersize, const char* filename);
 #endif /*LODEPNG_COMPILE_DISK*/
 
@@ -773,149 +783,151 @@ unsigned LodePNG_saveFile(const unsigned char* buffer, size_t buffersize, const 
 
 #ifdef LODEPNG_COMPILE_ZLIB
 //The C++ wrapper for LodeZlib
-namespace LodeZlib {
+namespace LodeZlib
+{
 #ifdef LODEPNG_COMPILE_DECODER
-    //Zlib-decompress an unsigned char buffer
-    unsigned decompress(std::vector<unsigned char>& out, const unsigned char* in, size_t insize, const LodeZlib_DecompressSettings& settings = LodeZlib_defaultDecompressSettings);
+  //Zlib-decompress an unsigned char buffer
+  unsigned decompress(std::vector<unsigned char>& out, const unsigned char* in, size_t insize, const LodeZlib_DecompressSettings& settings = LodeZlib_defaultDecompressSettings);
 
-    //Zlib-decompress an std::vector
-    unsigned decompress(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, const LodeZlib_DecompressSettings& settings = LodeZlib_defaultDecompressSettings);
+  //Zlib-decompress an std::vector
+  unsigned decompress(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, const LodeZlib_DecompressSettings& settings = LodeZlib_defaultDecompressSettings);
 #endif //LODEPNG_COMPILE_DECODER
 
 #ifdef LODEPNG_COMPILE_ENCODER
-    //Zlib-compress an unsigned char buffer
-    unsigned compress(std::vector<unsigned char>& out, const unsigned char* in, size_t insize, const LodeZlib_CompressSettings& settings = LodeZlib_defaultCompressSettings);
+  //Zlib-compress an unsigned char buffer
+  unsigned compress(std::vector<unsigned char>& out, const unsigned char* in, size_t insize, const LodeZlib_CompressSettings& settings = LodeZlib_defaultCompressSettings);
 
-    //Zlib-compress an std::vector
-    unsigned compress(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, const LodeZlib_CompressSettings& settings = LodeZlib_defaultCompressSettings);
+  //Zlib-compress an std::vector
+  unsigned compress(std::vector<unsigned char>& out, const std::vector<unsigned char>& in, const LodeZlib_CompressSettings& settings = LodeZlib_defaultCompressSettings);
 #endif //LODEPNG_COMPILE_ENCODER
 } //namespace LodeZlib
 #endif //LODEPNG_COMPILE_ZLIB
 
 #ifdef LODEPNG_COMPILE_PNG
-namespace LodePNG {
+namespace LodePNG
+{
 
 #ifdef LODEPNG_COMPILE_DECODER
-
-    /*
-    Class to decode a PNG image. Before decoding, settings can be set and
-    after decoding, extra information about the PNG can be retrieved.
-    Extends from the C-struct LodePNG_Decoder to add constructors and destructors
-    to initialize/cleanup it automatically. Beware, no virtual destructor is used.
-     */
-    class Decoder : public LodePNG_Decoder {
+  /*
+  Class to decode a PNG image. Before decoding, settings can be set and
+  after decoding, extra information about the PNG can be retrieved.
+  Extends from the C-struct LodePNG_Decoder to add constructors and destructors
+  to initialize/cleanup it automatically. Beware, no virtual destructor is used.
+  */
+  class Decoder : public LodePNG_Decoder
+  {
     public:
 
-        Decoder();
-        ~Decoder();
-        void operator=(const LodePNG_Decoder& other);
+    Decoder();
+    ~Decoder();
+    void operator=(const LodePNG_Decoder& other);
 
-        //decode PNG buffer to raw out buffer. Width and height can be retrieved with getWidth() and getHeight() and error should be checked with hasError() and getError()
-        void decode(std::vector<unsigned char>& out, const unsigned char* in, size_t insize);
+    //decode PNG buffer to raw out buffer. Width and height can be retrieved with getWidth() and getHeight() and error should be checked with hasError() and getError()
+    void decode(std::vector<unsigned char>& out, const unsigned char* in, size_t insize);
 
-        //decode PNG buffer to raw out buffer. Width and height can be retrieved with getWidth() and getHeight() and error should be checked with hasError() and getError()
-        void decode(std::vector<unsigned char>& out, const std::vector<unsigned char>& in);
+    //decode PNG buffer to raw out buffer. Width and height can be retrieved with getWidth() and getHeight() and error should be checked with hasError() and getError()
+    void decode(std::vector<unsigned char>& out, const std::vector<unsigned char>& in);
 
-        //inspect functions: get only the info from the PNG header. The info can then be retrieved with the functions of this class.
-        void inspect(const unsigned char* in, size_t insize);
+    //inspect functions: get only the info from the PNG header. The info can then be retrieved with the functions of this class.
+    void inspect(const unsigned char* in, size_t insize);
 
-        //inspect functions: get only the info from the PNG header. The info can then be retrieved with the functions of this class.
-        void inspect(const std::vector<unsigned char>& in);
+    //inspect functions: get only the info from the PNG header. The info can then be retrieved with the functions of this class.
+    void inspect(const std::vector<unsigned char>& in);
 
-        //error checking after decoding
-        bool hasError() const;
-        unsigned getError() const;
+    //error checking after decoding
+    bool hasError() const;
+    unsigned getError() const;
 
-        //convenient access to some InfoPng parameters after decoding
-        unsigned getWidth() const; //width of image in pixels
-        unsigned getHeight() const; //height of image in pixels
-        unsigned getBpp(); //bits per pixel
-        unsigned getChannels(); //amount of channels
-        unsigned isGreyscaleType(); //is it a greyscale type? (colorType 0 or 4)
-        unsigned isAlphaType(); //has it an alpha channel? (colorType 2 or 6)
+    //convenient access to some InfoPng parameters after decoding
+    unsigned getWidth() const; //width of image in pixels
+    unsigned getHeight() const; //height of image in pixels
+    unsigned getBpp(); //bits per pixel
+    unsigned getChannels(); //amount of channels
+    unsigned isGreyscaleType(); //is it a greyscale type? (colorType 0 or 4)
+    unsigned isAlphaType(); //has it an alpha channel? (colorType 2 or 6)
 
-        //getters and setters for the decoding settings
-        const LodePNG_DecodeSettings& getSettings() const;
-        LodePNG_DecodeSettings& getSettings();
-        void setSettings(const LodePNG_DecodeSettings& info);
+    //getters and setters for the decoding settings
+    const LodePNG_DecodeSettings& getSettings() const;
+    LodePNG_DecodeSettings& getSettings();
+    void setSettings(const LodePNG_DecodeSettings& info);
 
-        //getters and setters for the PNG image info, after decoding this describes information of the PNG image
-        const LodePNG_InfoPng& getInfoPng() const;
-        LodePNG_InfoPng& getInfoPng();
-        void setInfoPng(const LodePNG_InfoPng& info);
-        void swapInfoPng(LodePNG_InfoPng& info); //faster than copying with setInfoPng
+    //getters and setters for the PNG image info, after decoding this describes information of the PNG image
+    const LodePNG_InfoPng& getInfoPng() const;
+    LodePNG_InfoPng& getInfoPng();
+    void setInfoPng(const LodePNG_InfoPng& info);
+    void swapInfoPng(LodePNG_InfoPng& info); //faster than copying with setInfoPng
 
-        //getters and setters for the raw image info, this determines in what format you get the pixel buffer from the decoder
-        const LodePNG_InfoRaw& getInfoRaw() const;
-        LodePNG_InfoRaw& getInfoRaw();
-        void setInfoRaw(const LodePNG_InfoRaw& info);
-    };
+    //getters and setters for the raw image info, this determines in what format you get the pixel buffer from the decoder
+    const LodePNG_InfoRaw& getInfoRaw() const;
+    LodePNG_InfoRaw& getInfoRaw();
+    void setInfoRaw(const LodePNG_InfoRaw& info);
+  };
 #endif //LODEPNG_COMPILE_DECODER
 
 #ifdef LODEPNG_COMPILE_ENCODER
-
-    /*
-    Class to encode a PNG image. Before encoding, settings can be set.
-    Extends from the C-struct LodePNG_Enoder to add constructors and destructors
-    to initialize/cleanup it automatically. Beware, no virtual destructor is used.
-     */
-    class Encoder : public LodePNG_Encoder {
+  /*
+  Class to encode a PNG image. Before encoding, settings can be set.
+  Extends from the C-struct LodePNG_Enoder to add constructors and destructors
+  to initialize/cleanup it automatically. Beware, no virtual destructor is used.
+  */
+  class Encoder : public LodePNG_Encoder
+  {
     public:
 
-        Encoder();
-        ~Encoder();
-        void operator=(const LodePNG_Encoder& other);
+    Encoder();
+    ~Encoder();
+    void operator=(const LodePNG_Encoder& other);
 
-        //encoding image to PNG buffer
-        void encode(std::vector<unsigned char>& out, const unsigned char* image, unsigned w, unsigned h);
+    //encoding image to PNG buffer
+    void encode(std::vector<unsigned char>& out, const unsigned char* image, unsigned w, unsigned h);
 
-        //encoding image to PNG buffer
-        void encode(std::vector<unsigned char>& out, const std::vector<unsigned char>& image, unsigned w, unsigned h);
+    //encoding image to PNG buffer
+    void encode(std::vector<unsigned char>& out, const std::vector<unsigned char>& image, unsigned w, unsigned h);
 
-        //error checking after decoding
-        bool hasError() const;
-        unsigned getError() const;
+    //error checking after decoding
+    bool hasError() const;
+    unsigned getError() const;
 
-        //convenient direct access to some parameters of the InfoPng
-        void clearPalette();
-        void addPalette(unsigned char r, unsigned char g, unsigned char b, unsigned char a); //add 1 color to the palette
+    //convenient direct access to some parameters of the InfoPng
+    void clearPalette();
+    void addPalette(unsigned char r, unsigned char g, unsigned char b, unsigned char a); //add 1 color to the palette
 #ifdef LODEPNG_COMPILE_ANCILLARY_CHUNKS
-        void clearText();
-        void addText(const std::string& key, const std::string& str); //push back both texts at once
-        void clearIText();
-        void addIText(const std::string& key, const std::string& langtag, const std::string& transkey, const std::string& str);
+    void clearText();
+    void addText(const std::string& key, const std::string& str); //push back both texts at once
+    void clearIText();
+    void addIText(const std::string& key, const std::string& langtag, const std::string& transkey, const std::string& str);
 #endif //LODEPNG_COMPILE_ANCILLARY_CHUNKS
 
-        //getters and setters for the encoding settings
-        const LodePNG_EncodeSettings& getSettings() const;
-        LodePNG_EncodeSettings& getSettings();
-        void setSettings(const LodePNG_EncodeSettings& info);
+    //getters and setters for the encoding settings
+    const LodePNG_EncodeSettings& getSettings() const;
+    LodePNG_EncodeSettings& getSettings();
+    void setSettings(const LodePNG_EncodeSettings& info);
 
-        //getters and setters for the PNG image info, this describes what color type and other settings the resulting PNG should have
-        const LodePNG_InfoPng& getInfoPng() const;
-        LodePNG_InfoPng& getInfoPng();
-        void setInfoPng(const LodePNG_InfoPng& info);
-        void swapInfoPng(LodePNG_InfoPng& info); //faster than copying with setInfoPng
+    //getters and setters for the PNG image info, this describes what color type and other settings the resulting PNG should have
+    const LodePNG_InfoPng& getInfoPng() const;
+    LodePNG_InfoPng& getInfoPng();
+    void setInfoPng(const LodePNG_InfoPng& info);
+    void swapInfoPng(LodePNG_InfoPng& info); //faster than copying with setInfoPng
 
-        //getters and setters for the raw image info, this describes how the encoder should interpret the input pixel buffer
-        const LodePNG_InfoRaw& getInfoRaw() const;
-        LodePNG_InfoRaw& getInfoRaw();
-        void setInfoRaw(const LodePNG_InfoRaw& info);
-    };
+    //getters and setters for the raw image info, this describes how the encoder should interpret the input pixel buffer
+    const LodePNG_InfoRaw& getInfoRaw() const;
+    LodePNG_InfoRaw& getInfoRaw();
+    void setInfoRaw(const LodePNG_InfoRaw& info);
+  };
 #endif //LODEPNG_COMPILE_ENCODER
 
 #ifdef LODEPNG_COMPILE_DISK
-    /*
-    Load a file from disk into an std::vector. If the vector is empty, then either
-    the file doesn't exist or is an empty file.
-     */
-    void loadFile(std::vector<unsigned char>& buffer, const std::string& filename);
+  /*
+  Load a file from disk into an std::vector. If the vector is empty, then either
+  the file doesn't exist or is an empty file.
+  */
+  void loadFile(std::vector<unsigned char>& buffer, const std::string& filename);
 
-    /*
-    Save the binary data in an std::vector to a file on disk. The file is overwritten
-    without warning.
-     */
-    void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename);
+  /*
+  Save the binary data in an std::vector to a file on disk. The file is overwritten
+  without warning.
+  */
+  void saveFile(const std::vector<unsigned char>& buffer, const std::string& filename);
 #endif //LODEPNG_COMPILE_DISK
 } //namespace LodePNG
 #endif //LODEPNG_COMPILE_PNG
@@ -935,7 +947,7 @@ TODO:
 [ ] don't stop decoding on errors like 69, 57, 58 (make warnings that the decoder stores in the error at the very end? and make some errors just let it stop with this one chunk but still do the next ones)
 [ ] make option to choose if the raw image with non multiple of 8 bits per scanline should have padding bits or not, if people like storing raw images that way
 [ ] let the C++ wrapper catch exceptions coming from the standard library and return LodePNG error codes instead, like the C version does. This is about std::vector allocations and about the saveFile and loadFile functions.
- */
+*/
 
 #endif /*LODEPNG_H inclusion guard*/
 
@@ -983,11 +995,11 @@ Specification (Second Edition) - W3C Recommendation 10 November 2003.
 
 The specifications used are:
 
- *) Portable Network Graphics (PNG) Specification (Second Edition):
+*) Portable Network Graphics (PNG) Specification (Second Edition):
      http://www.w3.org/TR/2003/REC-PNG-20031110
- *) RFC 1950 ZLIB Compressed Data Format version 3.3:
+*) RFC 1950 ZLIB Compressed Data Format version 3.3:
      http://www.gzip.org/zlib/rfc-zlib.html
- *) RFC 1951 DEFLATE Compressed Data Format Specification ver 1.3:
+*) RFC 1951 DEFLATE Compressed Data Format Specification ver 1.3:
      http://www.gzip.org/zlib/rfc-deflate.html
 
 The most recent version of LodePNG can currently be found at
@@ -1025,16 +1037,16 @@ to make a somewhat conformant editor.
 
 The following features are supported by the decoder:
 
- *) decoding of PNGs with any color type, bit depth and interlace mode, to a 24- or 32-bit color raw image, or the same color type as the PNG
- *) encoding of PNGs, from any raw image to 24- or 32-bit color, or the same color type as the raw image
- *) Adam7 interlace and deinterlace for any color type
- *) loading the image from harddisk or decoding it from a buffer from other sources than harddisk
- *) support for alpha channels, including RGBA color model, translucent palettes and color keying
- *) zlib decompression (inflate)
- *) zlib compression (deflate)
- *) CRC32 and ADLER32 checksums
- *) handling of unknown chunks, allowing making a PNG editor that stores custom and unknown chunks.
- *) the following chunks are supported (generated/interpreted) by both encoder and decoder:
+*) decoding of PNGs with any color type, bit depth and interlace mode, to a 24- or 32-bit color raw image, or the same color type as the PNG
+*) encoding of PNGs, from any raw image to 24- or 32-bit color, or the same color type as the raw image
+*) Adam7 interlace and deinterlace for any color type
+*) loading the image from harddisk or decoding it from a buffer from other sources than harddisk
+*) support for alpha channels, including RGBA color model, translucent palettes and color keying
+*) zlib decompression (inflate)
+*) zlib compression (deflate)
+*) CRC32 and ADLER32 checksums
+*) handling of unknown chunks, allowing making a PNG editor that stores custom and unknown chunks.
+*) the following chunks are supported (generated/interpreted) by both encoder and decoder:
     IHDR: header information
     PLTE: color palette
     IDAT: pixel data
@@ -1052,9 +1064,9 @@ The following features are supported by the decoder:
 
 The following features are _not_ supported:
 
- *) some features needed to make a conformant PNG-Editor might be still missing.
- *) partial loading/stream processing. All data must be available and is processed in one call.
- *) The following public chunks are not supported but treated as unknown chunks by LodePNG
+*) some features needed to make a conformant PNG-Editor might be still missing.
+*) partial loading/stream processing. All data must be available and is processed in one call.
+*) The following public chunks are not supported but treated as unknown chunks by LodePNG
     cHRM, gAMA, iCCP, sRGB, sBIT, hIST, sPLT
 
 
@@ -1109,9 +1121,9 @@ functions. For C++, simple decoding can be done with the LodePNG::decode functio
 and advanced decoding with the LodePNG::Decoder class.
 
 The Decoder contains 3 components:
- *) LodePNG_InfoPng: it stores information about the PNG (the input) in an LodePNG_InfoPng struct, don't modify this one yourself
- *) Settings: you can specify a few other settings for the decoder to use
- *) LodePNG_InfoRaw: here you can say what type of raw image (the output) you want to get
+*) LodePNG_InfoPng: it stores information about the PNG (the input) in an LodePNG_InfoPng struct, don't modify this one yourself
+*) Settings: you can specify a few other settings for the decoder to use
+*) LodePNG_InfoRaw: here you can say what type of raw image (the output) you want to get
 
 Some of the parameters described below may be inside the sub-struct "LodePNG_InfoColor color".
 In the C and C++ version, when using Info structs outside of the decoder or encoder, you need to use their
@@ -1171,9 +1183,9 @@ since the encoder input is trusted, the decoder input (a PNG image that could
 be forged by anyone) is not trusted.
 
 Like the Decoder, the Encoder has 3 components:
- *) LodePNG_InfoRaw: here you say what color type of the raw image (the input) has
- *) Settings: you can specify a few settings for the encoder to use
- *) LodePNG_InfoPng: the same LodePNG_InfoPng struct as created by the Decoder. For the encoder,
+*) LodePNG_InfoRaw: here you say what color type of the raw image (the input) has
+*) Settings: you can specify a few settings for the encoder to use
+*) LodePNG_InfoPng: the same LodePNG_InfoPng struct as created by the Decoder. For the encoder,
 with this you specify how you want the PNG (the output) to be.
 
 Some of the parameters described below may be inside the sub-struct "LodePNG_InfoColor color".
@@ -1219,19 +1231,19 @@ format with 4 bytes (unsigned chars) per pixel.
 =Settings=
 
 The following settings are supported (some are in sub-structs):
- *) autoLeaveOutAlphaChannel: when this option is enabled, when you specify a PNG
+*) autoLeaveOutAlphaChannel: when this option is enabled, when you specify a PNG
 color type with alpha channel (not to be confused with the color type of the raw
 image you specify!!), but the encoder detects that all pixels of the given image
 are opaque, then it'll automatically use the corresponding type without alpha
 channel, resulting in a smaller PNG image.
- *) btype: the block type for LZ77. 0 = uncompressed, 1 = fixed huffman tree, 2 = dynamic huffman tree (best compression)
- *) useLZ77: whether or not to use LZ77 for compressed block types
- *) windowSize: the window size used by the LZ77 encoder (1 - 32768)
- *) force_palette: if colorType is 2 or 6, you can make the encoder write a PLTE
+*) btype: the block type for LZ77. 0 = uncompressed, 1 = fixed huffman tree, 2 = dynamic huffman tree (best compression)
+*) useLZ77: whether or not to use LZ77 for compressed block types
+*) windowSize: the window size used by the LZ77 encoder (1 - 32768)
+*) force_palette: if colorType is 2 or 6, you can make the encoder write a PLTE
    chunk if force_palette is true. This can used as suggested palette to convert
    to by viewers that don't support more than 256 colors (if those still exist)
- *) add_id: add text chunk "Encoder: LodePNG <version>" to the image.
- *) text_compression: default 0. If 1, it'll store texts as zTXt instead of tEXt chunks.
+*) add_id: add text chunk "Encoder: LodePNG <version>" to the image.
+*) text_compression: default 0. If 1, it'll store texts as zTXt instead of tEXt chunks.
   zTXt chunks use zlib compression on the text. This gives a smaller result on
   large texts but a larger result on small texts (such as a single program name).
   It's all tEXt or all zTXt though, there's no separate setting per text yet.
@@ -1479,18 +1491,18 @@ std::vectors and std::strings in C++ can be incompatible resulting in bad things
 
 CHAR_BITS must be 8 or higher, because LodePNG uses unsigned chars for octets.
 
- *) gcc and g++
+*) gcc and g++
 
 LodePNG is developed in gcc so this compiler is natively supported. It gives no
 warnings with compiler options "-Wall -Wextra -pedantic -ansi", with gcc and g++
 version 4.5.1 on Linux.
 
- *) Mingw and Bloodshed DevC++
+*) Mingw and Bloodshed DevC++
 
 The Mingw compiler (a port of gcc) used by Bloodshed DevC++ for Windows is fully
 supported by LodePNG.
 
- *) Visual Studio 2005 and Visual C++ 2005 Express Edition
+*) Visual Studio 2005 and Visual C++ 2005 Express Edition
 
 Versions 20070604 up to 20080107 have been tested on VS2005 and work. Visual
 studio may give warnings about 'fopen' being deprecated. A multiplatform library
@@ -1499,23 +1511,23 @@ can't support the proposed Visual Studio alternative however.
 If you're using LodePNG in VS2005 and don't want to see the deprecated warnings,
 put this on top of lodepng.h before the inclusions: #define _CRT_SECURE_NO_DEPRECATE
 
- *) Visual Studio 6.0
+*) Visual Studio 6.0
 
 The C++ version of LodePNG was not supported by Visual Studio 6.0 because Visual
 Studio 6.0 doesn't follow the C++ standard and implements it incorrectly.
 The current C version of LodePNG has not been tested in VS6 but may work now.
 
- *) Comeau C/C++
+*) Comeau C/C++
 
 Vesion 20070107 compiles without problems on the Comeau C/C++ Online Test Drive
 at http://www.comeaucomputing.com/tryitout in both C90 and C++ mode.
 
- *) Compilers on Macintosh
+*) Compilers on Macintosh
 
 LodePNG has been reported to work both with the gcc and LLVM for Macintosh, both
 for C and C++.
 
- *) Other Compilers
+*) Other Compilers
 
 If you encounter problems on other compilers, I'm happy to help out make LodePNG
 support the compiler if it supports the ISO C90 and C++ standard well enough and
@@ -1653,98 +1665,98 @@ yyyymmdd.
 Some changes aren't backwards compatible. Those are indicated with a (!)
 symbol.
 
- *) 17 apr 2011: code cleanup. Bugfixes. Convert low to 16-bit per sample colors.
- *) 21 feb 2011: fixed compiling for C90. Fixed compiling with sections disabled.
- *) 11 dec 2010: encoding is made faster, based on suggestion by Peter Eastman
+*) 17 apr 2011: code cleanup. Bugfixes. Convert low to 16-bit per sample colors.
+*) 21 feb 2011: fixed compiling for C90. Fixed compiling with sections disabled.
+*) 11 dec 2010: encoding is made faster, based on suggestion by Peter Eastman
     to optimize long sequences of zeros.
- *) 13 nov 2010: added LodePNG_InfoColor_hasPaletteAlpha and
+*) 13 nov 2010: added LodePNG_InfoColor_hasPaletteAlpha and
     LodePNG_InfoColor_canHaveAlpha functions for convenience.
- *) 7 nov 2010: added LodePNG_error_text function to get error code description.
- *) 30 okt 2010: made decoding slightly faster
- *) 26 okt 2010: (!) changed some C function and struct names (more consistent).
+*) 7 nov 2010: added LodePNG_error_text function to get error code description.
+*) 30 okt 2010: made decoding slightly faster
+*) 26 okt 2010: (!) changed some C function and struct names (more consistent).
      Reorganized the documentation and the declaration order in the header.
- *) 08 aug 2010: only changed some comments and external samples.
- *) 05 jul 2010: fixed bug thanks to warnings in the new gcc version.
- *) 14 mar 2010: fixed bug where too much memory was allocated for char buffers.
- *) 02 sep 2008: fixed bug where it could create empty tree that linux apps could
+*) 08 aug 2010: only changed some comments and external samples.
+*) 05 jul 2010: fixed bug thanks to warnings in the new gcc version.
+*) 14 mar 2010: fixed bug where too much memory was allocated for char buffers.
+*) 02 sep 2008: fixed bug where it could create empty tree that linux apps could
     read by ignoring the problem but windows apps couldn't.
- *) 06 jun 2008: added more error checks for out of memory cases.
- *) 26 apr 2008: added a few more checks here and there to ensure more safety.
- *) 06 mar 2008: crash with encoding of strings fixed
- *) 02 feb 2008: support for international text chunks added (iTXt)
- *) 23 jan 2008: small cleanups, and #defines to divide code in sections
- *) 20 jan 2008: support for unknown chunks allowing using LodePNG for an editor.
- *) 18 jan 2008: support for tIME and pHYs chunks added to encoder and decoder.
- *) 17 jan 2008: ability to encode and decode compressed zTXt chunks added
+*) 06 jun 2008: added more error checks for out of memory cases.
+*) 26 apr 2008: added a few more checks here and there to ensure more safety.
+*) 06 mar 2008: crash with encoding of strings fixed
+*) 02 feb 2008: support for international text chunks added (iTXt)
+*) 23 jan 2008: small cleanups, and #defines to divide code in sections
+*) 20 jan 2008: support for unknown chunks allowing using LodePNG for an editor.
+*) 18 jan 2008: support for tIME and pHYs chunks added to encoder and decoder.
+*) 17 jan 2008: ability to encode and decode compressed zTXt chunks added
     Also vareous fixes, such as in the deflate and the padding bits code.
- *) 13 jan 2008: Added ability to encode Adam7-interlaced images. Improved
+*) 13 jan 2008: Added ability to encode Adam7-interlaced images. Improved
     filtering code of encoder.
- *) 07 jan 2008: (!) changed LodePNG to use ISO C90 instead of C++. A
+*) 07 jan 2008: (!) changed LodePNG to use ISO C90 instead of C++. A
     C++ wrapper around this provides an interface almost identical to before.
     Having LodePNG be pure ISO C90 makes it more portable. The C and C++ code
     are together in these files but it works both for C and C++ compilers.
- *) 29 dec 2007: (!) changed most integer types to unsigned int + other tweaks
- *) 30 aug 2007: bug fixed which makes this Borland C++ compatible
- *) 09 aug 2007: some VS2005 warnings removed again
- *) 21 jul 2007: deflate code placed in new namespace separate from zlib code
- *) 08 jun 2007: fixed bug with 2- and 4-bit color, and small interlaced images
- *) 04 jun 2007: improved support for Visual Studio 2005: crash with accessing
+*) 29 dec 2007: (!) changed most integer types to unsigned int + other tweaks
+*) 30 aug 2007: bug fixed which makes this Borland C++ compatible
+*) 09 aug 2007: some VS2005 warnings removed again
+*) 21 jul 2007: deflate code placed in new namespace separate from zlib code
+*) 08 jun 2007: fixed bug with 2- and 4-bit color, and small interlaced images
+*) 04 jun 2007: improved support for Visual Studio 2005: crash with accessing
     invalid std::vector element [0] fixed, and level 3 and 4 warnings removed
- *) 02 jun 2007: made the encoder add a tag with version by default
- *) 27 may 2007: zlib and png code separated (but still in the same file),
+*) 02 jun 2007: made the encoder add a tag with version by default
+*) 27 may 2007: zlib and png code separated (but still in the same file),
     simple encoder/decoder functions added for more simple usage cases
- *) 19 may 2007: minor fixes, some code cleaning, new error added (error 69),
+*) 19 may 2007: minor fixes, some code cleaning, new error added (error 69),
     moved some examples from here to lodepng_examples.cpp
- *) 12 may 2007: palette decoding bug fixed
- *) 24 apr 2007: changed the license from BSD to the zlib license
- *) 11 mar 2007: very simple addition: ability to encode bKGD chunks.
- *) 04 mar 2007: (!) tEXt chunk related fixes, and support for encoding
+*) 12 may 2007: palette decoding bug fixed
+*) 24 apr 2007: changed the license from BSD to the zlib license
+*) 11 mar 2007: very simple addition: ability to encode bKGD chunks.
+*) 04 mar 2007: (!) tEXt chunk related fixes, and support for encoding
     palettized PNG images. Plus little interface change with palette and texts.
- *) 03 mar 2007: Made it encode dynamic Huffman shorter  with repeat codes.
+*) 03 mar 2007: Made it encode dynamic Huffman shorter  with repeat codes.
     Fixed a bug where the end code of a block had length 0 in the Huffman tree.
- *) 26 feb 2007: Huffman compression with dynamic trees (BTYPE 2) now implemented
+*) 26 feb 2007: Huffman compression with dynamic trees (BTYPE 2) now implemented
     and supported by the encoder, resulting in smaller PNGs at the output.
- *) 27 jan 2007: Made the Adler-32 test faster so that a timewaste is gone.
- *) 24 jan 2007: gave encoder an error interface. Added color conversion from any
+*) 27 jan 2007: Made the Adler-32 test faster so that a timewaste is gone.
+*) 24 jan 2007: gave encoder an error interface. Added color conversion from any
     greyscale type to 8-bit greyscale with or without alpha.
- *) 21 jan 2007: (!) Totally changed the interface. It allows more color types
+*) 21 jan 2007: (!) Totally changed the interface. It allows more color types
     to convert to and is more uniform. See the manual for how it works now.
- *) 07 jan 2007: Some cleanup & fixes, and a few changes over the last days:
+*) 07 jan 2007: Some cleanup & fixes, and a few changes over the last days:
     encode/decode custom tEXt chunks, separate classes for zlib & deflate, and
     at last made the decoder give errors for incorrect Adler32 or Crc.
- *) 01 jan 2007: Fixed bug with encoding PNGs with less than 8 bits per channel.
- *) 29 dec 2006: Added support for encoding images without alpha channel, and
+*) 01 jan 2007: Fixed bug with encoding PNGs with less than 8 bits per channel.
+*) 29 dec 2006: Added support for encoding images without alpha channel, and
     cleaned out code as well as making certain parts faster.
- *) 28 dec 2006: Added "Settings" to the encoder.
- *) 26 dec 2006: The encoder now does LZ77 encoding and produces much smaller files now.
+*) 28 dec 2006: Added "Settings" to the encoder.
+*) 26 dec 2006: The encoder now does LZ77 encoding and produces much smaller files now.
     Removed some code duplication in the decoder. Fixed little bug in an example.
- *) 09 dec 2006: (!) Placed output parameters of public functions as first parameter.
+*) 09 dec 2006: (!) Placed output parameters of public functions as first parameter.
     Fixed a bug of the decoder with 16-bit per color.
- *) 15 okt 2006: Changed documentation structure
- *) 09 okt 2006: Encoder class added. It encodes a valid PNG image from the
+*) 15 okt 2006: Changed documentation structure
+*) 09 okt 2006: Encoder class added. It encodes a valid PNG image from the
     given image buffer, however for now it's not compressed.
- *) 08 sep 2006: (!) Changed to interface with a Decoder class
- *) 30 jul 2006: (!) LodePNG_InfoPng , width and height are now retrieved in different
+*) 08 sep 2006: (!) Changed to interface with a Decoder class
+*) 30 jul 2006: (!) LodePNG_InfoPng , width and height are now retrieved in different
     way. Renamed decodePNG to decodePNGGeneric.
- *) 29 jul 2006: (!) Changed the interface: image info is now returned as a
+*) 29 jul 2006: (!) Changed the interface: image info is now returned as a
     struct of type LodePNG::LodePNG_Info, instead of a vector, which was a bit clumsy.
- *) 28 jul 2006: Cleaned the code and added new error checks.
+*) 28 jul 2006: Cleaned the code and added new error checks.
     Corrected terminology "deflate" into "inflate".
- *) 23 jun 2006: Added SDL example in the documentation in the header, this
+*) 23 jun 2006: Added SDL example in the documentation in the header, this
     example allows easy debugging by displaying the PNG and its transparency.
- *) 22 jun 2006: (!) Changed way to obtain error value. Added
+*) 22 jun 2006: (!) Changed way to obtain error value. Added
     loadFile function for convenience. Made decodePNG32 faster.
- *) 21 jun 2006: (!) Changed type of info vector to unsigned.
+*) 21 jun 2006: (!) Changed type of info vector to unsigned.
     Changed position of palette in info vector. Fixed an important bug that
     happened on PNGs with an uncompressed block.
- *) 16 jun 2006: Internally changed unsigned into unsigned where
+*) 16 jun 2006: Internally changed unsigned into unsigned where
     needed, and performed some optimizations.
- *) 07 jun 2006: (!) Renamed functions to decodePNG and placed them
+*) 07 jun 2006: (!) Renamed functions to decodePNG and placed them
     in LodePNG namespace. Changed the order of the parameters. Rewrote the
     documentation in the header. Renamed files to lodepng.cpp and lodepng.h
- *) 22 apr 2006: Optimized and improved some code
- *) 07 sep 2005: (!) Changed to std::vector interface
- *) 12 aug 2005: Initial release (C++, decoder only)
+*) 22 apr 2006: Optimized and improved some code
+*) 07 sep 2005: (!) Changed to std::vector interface
+*) 12 aug 2005: Initial release (C++, decoder only)
 
 
 12. contact information
@@ -1760,4 +1772,4 @@ Account: lode dot vandevenne.
 
 
 Copyright (c) 2005-2011 Lode Vandevenne
- */
+*/

@@ -6,18 +6,20 @@
 
 u8 usedSprites;
 
-typedef struct {
-    vect3D position;
-    u8 id, type;
-    s8 slot;
-    bool used;
-} item_struct;
+typedef struct
+{
+	vect3D position;
+	u8 id, type;
+	s8 slot;
+	bool used;
+}item_struct;
 
-typedef struct {
-    vect3D position;
-    s8 id;
-    bool used;
-} slot_struct;
+typedef struct
+{
+	vect3D position;
+	s8 id;
+	bool used;
+}slot_struct;
 
 item_struct items[MAXITEMS];
 slot_struct slots[MAXSLOTS];

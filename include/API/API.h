@@ -3,101 +3,112 @@
 
 typedef void(*API_drawfunction)(void* e);
 
-typedef struct {
-    s32 x, y;
-} coord2Ds;
+typedef struct
+{
+	s32 x, y;
+}coord2Ds;
 
-typedef struct {
-    u32 x, y;
-} coord2Du;
+typedef struct
+{
+	u32 x, y;
+}coord2Du;
 
-typedef struct {
-    u8* data;
-    u8 charsizeX, charsizeY;
-    u8 difference;
-} API_Font;
+typedef struct
+{
+	u8* data;
+	u8 charsizeX, charsizeY;
+	u8 difference;
+}API_Font;
 
-typedef struct API_Entity {
-    u16 id, type;
-    u8 timep;
-    u8 times;
-    u8 timea;
-    s16 prio;
-    s16 alpha;
-    u16 color;
-    u8 t_timep;
-    u8 t_times;
-    u8 t_timea;
-    void* data;
-    u8 outline;
-    s16 t_alpha;
-    bool halpha;
-    bool shadow;
-    bool bastard;
-    u8 kidToDate;
-    coord2Ds Size;
-    coord2Ds Ratio;
-    coord2Ds a_Size;
-    coord2Ds o_Size;
-    coord2Ds b_Size;
-    coord2Ds t_Size;
-    GLvector scaleVs;
-    u16 outline_color;
-    coord2Ds Position;
-    coord2Ds a_Position;
-    coord2Ds o_Position;
-    coord2Ds t_Position;
-    API_drawfunction Draw;
-    struct API_Entity *father;
-    struct API_Entity *temp_son;
-    struct API_Entity *up, *down, *left, *right;
-} API_Entity;
+typedef struct API_Entity
+{
+	u16 id, type;
+	u8 timep;
+	u8 times;
+	u8 timea;
+	s16 prio;
+	s16 alpha;
+	u16 color;
+	u8 t_timep;
+	u8 t_times;
+	u8 t_timea;
+	void* data;
+	u8 outline;
+	s16 t_alpha;
+	bool halpha;
+	bool shadow;
+	bool bastard;
+	u8 kidToDate;
+	coord2Ds Size;
+	coord2Ds Ratio;
+	coord2Ds a_Size;
+	coord2Ds o_Size;
+	coord2Ds b_Size;
+	coord2Ds t_Size;
+	GLvector scaleVs;
+	u16 outline_color;
+	coord2Ds Position;
+	coord2Ds a_Position;
+	coord2Ds o_Position;
+	coord2Ds t_Position;
+	API_drawfunction Draw;
+	struct API_Entity *father;
+	struct API_Entity *temp_son;
+	struct API_Entity *up, *down, *left, *right;
+}API_Entity;
 
 typedef void(*API_function)(API_Entity* e);
 
-typedef struct {
-    MTL_img *background;
-} APIE_WindowData;
+typedef struct
+{
+	MTL_img *background;
+}APIE_WindowData;
 
-typedef struct {
-    // MTL_img *background;
-    char* string;
-    u16 width;
-    u16 color;
-} APIE_LabelData;
+typedef struct
+{
+	// MTL_img *background;
+	char* string;
+	u16 width;
+	u16 color;
+}APIE_LabelData;
 
-typedef struct {
-    bool over, clicked;
-    MTL_img *background;
-    API_Entity* label;
-    API_function function;
-    bool clickable;
-} APIE_ButtonData;
+typedef struct
+{
+	bool over, clicked;
+	MTL_img *background;
+	API_Entity* label;
+	API_function function;
+	bool clickable;
+}APIE_ButtonData;
 
-typedef struct {
-    bool over, checked, clickable;
-    MTL_img *background;
-    API_Entity* label;
-    API_function function;
-} APIE_CheckBoxData;
+typedef struct
+{
+	bool over, checked, clickable;
+	MTL_img *background;
+	API_Entity* label;
+	API_function function;
+}APIE_CheckBoxData;
 
-typedef struct {
-    s16 position, oldpos;
-    API_Entity* label;
-    bool over, selected;
-    MTL_img *background;
-    API_function function;
-} APIE_SliderData;
+typedef struct
+{
+	s16 position, oldpos;
+	API_Entity* label;
+	bool over, selected;
+	MTL_img *background;
+	API_function function;
+}APIE_SliderData;
 
-typedef struct API_ListElement {
-    struct API_ListElement *previous, *next;
-    API_Entity *entity;
-} API_ListElement;
+typedef struct API_ListElement
+{
+	struct API_ListElement *previous, *next;
+	API_Entity *entity;
+}API_ListElement;
 
-typedef struct {
-    API_ListElement *first, *last;
-    u16 count;
-} API_EntList;
+typedef struct
+{
+	API_ListElement *first, *last;
+	u16 count;
+}API_EntList;
 
 bool cull;
 bool API_DrawingOutline;

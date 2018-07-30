@@ -10,21 +10,21 @@
    This module implements a simple dictionary object, i.e. a list
    of string/string associations. This object is useful to store e.g.
    informations retrieved from a configuration file (ini files).
- */
+*/
 /*--------------------------------------------------------------------------*/
 
 /*
-        $Id: dictionary.h,v 1.12 2007-11-23 21:37:00 ndevilla Exp $
-        $Author: ndevilla $
-        $Date: 2007-11-23 21:37:00 $
-        $Revision: 1.12 $
- */
+	$Id: dictionary.h,v 1.12 2007-11-23 21:37:00 ndevilla Exp $
+	$Author: ndevilla $
+	$Date: 2007-11-23 21:37:00 $
+	$Revision: 1.12 $
+*/
 
 #ifndef _DICTIONARY_H_
 #define _DICTIONARY_H_
 
 /*---------------------------------------------------------------------------
-                                                                Includes
+   								Includes
  ---------------------------------------------------------------------------*/
 
 #include <stdio.h>
@@ -33,7 +33,7 @@
 #include <unistd.h>
 
 /*---------------------------------------------------------------------------
-                                                                New types
+   								New types
  ---------------------------------------------------------------------------*/
 
 
@@ -46,19 +46,18 @@
   in the dictionary is speeded up by the use of a (hopefully collision-free)
   hash function.
  */
-
 /*-------------------------------------------------------------------------*/
 typedef struct _dictionary_ {
-    int n; /** Number of entries in dictionary */
-    int size; /** Storage size */
-    char ** val; /** List of string values */
-    char ** key; /** List of string keys */
-    unsigned * hash; /** List of hash values for keys */
-} dictionary;
+	int				n ;		/** Number of entries in dictionary */
+	int				size ;	/** Storage size */
+	char 		**	val ;	/** List of string values */
+	char 		**  key ;	/** List of string keys */
+	unsigned	 *	hash ;	/** List of hash values for keys */
+} dictionary ;
 
 
 /*---------------------------------------------------------------------------
-                                                        Function prototypes
+  							Function prototypes
  ---------------------------------------------------------------------------*/
 
 /*-------------------------------------------------------------------------*/

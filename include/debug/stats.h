@@ -1,11 +1,12 @@
 #ifndef _STATS_H
 #define _STATS_H
 
-typedef struct {
-    u32 total;
-    u32 max, min;
-    u32 count;
-} stats_struct;
+typedef struct
+{
+	u32 total;
+	u32 max, min;
+	u32 count;
+}stats_struct;
 
 stats_struct streamRead;
 stats_struct streamCalc;

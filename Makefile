@@ -21,17 +21,17 @@ SOURCES		:=	source source/game source/debug source/engine source/common source/A
 DATA		:=  data
 INCLUDES	:=	include
 NITRODATA	:=	nitrofiles
-GAME_ICON   := $(CURDIR)/../icon.bmp
-GAME_TITLE   := DScraft v310811
-GAME_SUBTITLE1   := made by smealum
-GAME_SUBTITLE2   := www.smealum.net/dscraft
+#GAME_ICON   := $(CURDIR)/../icon.bmp
+GAME_TITLE   := MineDS
+GAME_SUBTITLE1   := https://daporkchop.net
+GAME_SUBTITLE2   := based on dscraft by smealum
 MUSIC  :=  maxmod_data
 MAXMOD_SOUNDBANK  :=  maxmod_data
  
 #---------------------------------------------------------------------------------
 # options for code generation
 #--------------------------------------------------------------------------------- -mthumb -mthumb-interwork -march=armv5te -mtune=arm946e-s
-ARCH	:=	
+ARCH	:=	-DNDS
 
 CFLAGS	:=	-g -Wall -O3\
  		-fomit-frame-pointer\

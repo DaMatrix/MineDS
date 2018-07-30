@@ -3,10 +3,11 @@
 
 #define CHARSIZE 16
 
-typedef struct {
-    MTL_img tex;
-    u8 charsize;
-} font;
+typedef struct
+{
+	MTL_img tex;
+	u8 charsize;
+}font;
 
 font hudFont, APIfont;
 font* currentFont;

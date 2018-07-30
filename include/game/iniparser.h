@@ -6,19 +6,19 @@
    @date    Sep 2007
    @version 3.0
    @brief   Parser for ini files.
- */
+*/
 /*--------------------------------------------------------------------------*/
 
 /*
-        $Id: iniparser.h,v 1.24 2007-11-23 21:38:19 ndevilla Exp $
-        $Revision: 1.24 $
- */
+	$Id: iniparser.h,v 1.24 2007-11-23 21:38:19 ndevilla Exp $
+	$Revision: 1.24 $
+*/
 
 #ifndef _INIPARSER_H_
 #define _INIPARSER_H_
 
 /*---------------------------------------------------------------------------
-                                                                Includes
+   								Includes
  ---------------------------------------------------------------------------*/
 
 #include <stdio.h>
@@ -35,7 +35,7 @@
 #include "dictionary.h"
 
 /*---------------------------------------------------------------------------
-                                                                Macros
+   								Macros
  ---------------------------------------------------------------------------*/
 /** For backwards compatibility only */
 #define iniparser_getstr(d, k)  iniparser_getstring(d, k, NULL)
@@ -246,7 +246,7 @@ void iniparser_unset(dictionary * ini, char * entry);
   of querying for the presence of sections in a dictionary.
  */
 /*--------------------------------------------------------------------------*/
-int iniparser_find_entry(dictionary * ini, char * entry);
+int iniparser_find_entry(dictionary * ini, char * entry) ;
 
 /*-------------------------------------------------------------------------*/
 /**

@@ -3,7 +3,7 @@
 
 #include "common/general.h"
 #include "API/dual3D.h"
-#include "../include/game/textures.h"
+#include "game/textures.h"
 
 #include "API/font.h"
 

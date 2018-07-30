@@ -8,10 +8,11 @@
 #define DAWNSIZE 256
 #define CLOUDSIZE 511
 
-typedef struct {
-    vect3D angle;
-    u8 size, shiny;
-} star_struct;
+typedef struct
+{
+	vect3D angle;
+	u8 size, shiny;
+}star_struct;
 
 star_struct stars[STARS];
 
