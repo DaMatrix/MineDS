@@ -5,6 +5,7 @@
 //own classes
 #include "../include/util/porkmath.h"
 #include "../include/blocks.h"
+#include "../include/render.h"
 
 volatile float pitch = 0.0;
 volatile float yaw = 0.0;
@@ -66,10 +67,11 @@ int main() {
         if ((keys & KEY_LEFT)) yaw += 3;
         if ((keys & KEY_RIGHT)) yaw -= 3;
 
-        bindTex(((tex++) >> 4) % BLOCK_COUNT);
+        //bindTex(((tex++) >> 4) % BLOCK_COUNT);
 
+        renderBlock(((tex++) >> 4) % BLOCK_COUNT, 0, 0, 0);
         //draw the obj
-        glBegin(GL_QUAD);
+        /*glBegin(GL_QUAD);
         glNormal(NORMAL_PACK(0, inttov10(-1), 0));
 
         GFX_TEX_COORD = (TEXTURE_PACK(inttot16(0), inttot16(16)));
@@ -81,7 +83,7 @@ int main() {
         GFX_TEX_COORD = (TEXTURE_PACK(inttot16(0), inttot16(0)));
         glVertex3v16(floattov16(-0.5), floattov16(0.5), floattov16(-1));
 
-        glEnd();
+        glEnd();*/
 
         glPopMatrix(1);
 
