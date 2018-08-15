@@ -39,9 +39,9 @@ void loadSettings(void)
 	sscanf(dictionary_get(setdic,"settings:controls","0"),"%hd",&b);
 	gameSettings.controls=b;
 	#ifdef FATONLY
-		sscanf(dictionary_get(setdic,"settings:texturepack","packs/eldpack"),"%s",gameSettings.texturePack);
+		sscanf(dictionary_get(setdic,"settings:texturepack","packs/minecraft"),"%s",gameSettings.texturePack);
 	#else
-		sscanf(dictionary_get(setdic,"settings:texturepack","nitro:/dscraft/packs/eldpack"),"%s",gameSettings.texturePack);
+		sscanf(dictionary_get(setdic,"settings:texturepack","nitro:/dscraft/packs/minecraft"),"%s",gameSettings.texturePack);
 	#endif
 	iniparser_freedict(setdic);
 }
@@ -774,7 +774,7 @@ vect3D ClosestPointOnLine(vect3D vA, vect3D vD, int length, int32* dist, vect3D 
 	vVector1.z-=vA.z;
 
 	// Create a normalized direction vector from end point vA to end point vB
-    vect3D vVector2 = vD; //vD direction du segment, normé
+    vect3D vVector2 = vD; //vD direction du segment, normï¿½
 
 	// Use the distance formula to find the distance of the line segment (or magnitude)
     int32 d = inttof32(length);

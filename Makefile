@@ -21,10 +21,10 @@ SOURCES		:=	source source/game source/debug source/engine source/common source/A
 DATA		:=  data
 INCLUDES	:=	include
 NITRODATA	:=	nitrofiles
-#GAME_ICON   := $(CURDIR)/../icon.bmp
-GAME_TITLE   := MineDS
-GAME_SUBTITLE1   := https://daporkchop.net
-GAME_SUBTITLE2   := based on dscraft by smealum
+GAME_ICON       := $(CURDIR)/../icon.bmp
+GAME_TITLE      := MineDS
+GAME_SUBTITLE1  := https://daporkchop.net
+GAME_SUBTITLE2  := based on dscraft by smealum
 MUSIC  :=  maxmod_data
 MAXMOD_SOUNDBANK  :=  maxmod_data
  
