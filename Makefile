@@ -111,6 +111,7 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@bash -c "$(CURDIR)/updateStore.sh"
  
 #---------------------------------------------------------------------------------
 clean:

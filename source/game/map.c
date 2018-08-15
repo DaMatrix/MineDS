@@ -1849,7 +1849,7 @@ void generateQuads(map_struct* m, clusterColumn_struct* cC, u8* t, u16 x, u16 y)
 					if(*d>=WATERTYPE)
 					{
 						ql=&c->specialList;
-						if(((*t)&63)!=2 || *d>WATERTYPE)addWater(m, x+i, y+j, k, *d);//ï¿½ optimisay //pas sï¿½r que la nouvelle condition corrige tout
+						if(((*t)&63)!=2 || *d>WATERTYPE)addWater(m, x+i, y+j, k, *d);//à optimisay //pas sûr que la nouvelle condition corrige tout
 					}else ql=&c->quadList;
 					if(*d>=LADDERTYPE && *d<LADDERTYPE+4+16)
 					{
@@ -2317,10 +2317,7 @@ void generateTestMap(map_struct* m) //NOW INVALID, SORRY. (requires blank file g
 	iprintf("done !\nprocessing data...");*/
 }
 
-FILE_POSITION _FAT_getPosition(u32* pos)    {
-    FILE_POSITION f = { 0, 0, 0 };
-    return f;
-}
+FILE_POSITION _FAT_getPosition(u32* pos);
 uint32_t _FAT_setPosition(FILE_POSITION np, uint32_t pos);
 
 static inline sec_t clusterToSector(PARTITION* partition, uint32_t cluster){
@@ -2574,8 +2571,8 @@ void loadTestMap(map_struct* m)
 void readClusterColumn2048(map_struct* m, u16 i, u16 j, clusterColumn_struct* c, u8* t, void* f)
 {
 	PROF_START();
-	//readSectors(m->fileMap[i+m->clusterSize.x*j], 2, c->data);
-	//readSectors(m->fileMap[i+m->clusterSize.x*j]+2, 2, t);
+	readSectors(m->fileMap[i+m->clusterSize.x*j], 2, c->data);
+	readSectors(m->fileMap[i+m->clusterSize.x*j]+2, 2, t);
 	int time; PROF_END(time);
 	addValue(&streamRead,time);
 	PROF_START();
@@ -2591,8 +2588,8 @@ void readClusterColumn2048(map_struct* m, u16 i, u16 j, clusterColumn_struct* c,
 void readClusterColumn1024(map_struct* m, u16 i, u16 j, clusterColumn_struct* c, u8* t, void* f)
 {
 	PROF_START();
-	//readSectors(m->fileMap[i*2+m->clusterSize.x*2*j], 2, c->data);
-	//readSectors(m->fileMap[i*2+1+m->clusterSize.x*2*j], 2, t);
+	readSectors(m->fileMap[i*2+m->clusterSize.x*2*j], 2, c->data);
+	readSectors(m->fileMap[i*2+1+m->clusterSize.x*2*j], 2, t);
 	int time; PROF_END(time);
 	addValue(&streamRead,time);
 	PROF_START();
@@ -2605,10 +2602,10 @@ void readClusterColumn1024(map_struct* m, u16 i, u16 j, clusterColumn_struct* c,
 void readClusterColumn512(map_struct* m, u16 i, u16 j, clusterColumn_struct* c, u8* t, void* f)
 {
 	PROF_START();
-	//readSectors(m->fileMap[i*4+m->clusterSize.x*4*j], 1, c->data);
-	//readSectors(m->fileMap[i*4+1+m->clusterSize.x*4*j], 1, &c->data[512]);
-	//readSectors(m->fileMap[i*4+2+m->clusterSize.x*4*j], 1, t);
-	//readSectors(m->fileMap[i*4+3+m->clusterSize.x*4*j], 1, &t[512]);
+	readSectors(m->fileMap[i*4+m->clusterSize.x*4*j], 1, c->data);
+	readSectors(m->fileMap[i*4+1+m->clusterSize.x*4*j], 1, &c->data[512]);
+	readSectors(m->fileMap[i*4+2+m->clusterSize.x*4*j], 1, t);
+	readSectors(m->fileMap[i*4+3+m->clusterSize.x*4*j], 1, &t[512]);
 	int time; PROF_END(time);
 	addValue(&streamRead,time);
 	PROF_START();
@@ -2636,8 +2633,8 @@ void writeClusterColumn2048(map_struct* m, u16 i, u16 j, clusterColumn_struct* c
 	int time;
 	PROF_START();
 	precalcCollumn(m, i, j, t);
-	//writeSectors(m->fileMap[i+m->clusterSize.x*j], 2, c->data);
-	//writeSectors(m->fileMap[i+m->clusterSize.x*j]+2, 2, t);
+	writeSectors(m->fileMap[i+m->clusterSize.x*j], 2, c->data);
+	writeSectors(m->fileMap[i+m->clusterSize.x*j]+2, 2, t);
 	PROF_END(time);
 	addValue(&columnWrite,time);
 	if(!c->changed)c->changed=2;
@@ -2648,8 +2645,8 @@ void writeClusterColumn1024(map_struct* m, u16 i, u16 j, clusterColumn_struct* c
 	int time;
 	PROF_START();
 	precalcCollumn(m, i, j, t);
-	//writeSectors(m->fileMap[i*2+m->clusterSize.x*2*j], 2, c->data);
-	//writeSectors(m->fileMap[i*2+1+m->clusterSize.x*2*j], 2, t);
+	writeSectors(m->fileMap[i*2+m->clusterSize.x*2*j], 2, c->data);
+	writeSectors(m->fileMap[i*2+1+m->clusterSize.x*2*j], 2, t);
 	PROF_END(time);
 	addValue(&columnWrite,time);
 	if(!c->changed)c->changed=2;
@@ -2660,10 +2657,10 @@ void writeClusterColumn512(map_struct* m, u16 i, u16 j, clusterColumn_struct* c,
 	int time;
 	PROF_START();
 	precalcCollumn(m, i, j, t);
-	//writeSectors(m->fileMap[i*4+m->clusterSize.x*4*j], 1, c->data);
-	//writeSectors(m->fileMap[i*4+1+m->clusterSize.x*4*j], 1, &c->data[512]);
-	//writeSectors(m->fileMap[i*4+2+m->clusterSize.x*4*j], 1, t);
-	//writeSectors(m->fileMap[i*4+3+m->clusterSize.x*4*j], 1, &t[512]);
+	writeSectors(m->fileMap[i*4+m->clusterSize.x*4*j], 1, c->data);
+	writeSectors(m->fileMap[i*4+1+m->clusterSize.x*4*j], 1, &c->data[512]);
+	writeSectors(m->fileMap[i*4+2+m->clusterSize.x*4*j], 1, t);
+	writeSectors(m->fileMap[i*4+3+m->clusterSize.x*4*j], 1, &t[512]);
 	PROF_END(time);
 	addValue(&columnWrite,time);
 	if(!c->changed)c->changed=2;
@@ -2901,17 +2898,17 @@ void writeMapHeader(map_struct* m)
 	switch(fsFormat)
 	{
 		case 1:
-			//writeSectors(m->headerMap[0], 4, (u8*)m->header);
+			writeSectors(m->headerMap[0], 4, (u8*)m->header);
 			break;
 		case 2:
-			//writeSectors(m->headerMap[0], 2, &(((u8*)m->header)[0]));
-			//writeSectors(m->headerMap[1], 2, &(((u8*)m->header)[1024]));
+			writeSectors(m->headerMap[0], 2, &(((u8*)m->header)[0]));
+			writeSectors(m->headerMap[1], 2, &(((u8*)m->header)[1024]));
 			break;
 		case 3:
-			//writeSectors(m->headerMap[0], 1, &(((u8*)m->header)[0]));
-			//writeSectors(m->headerMap[1], 1, &(((u8*)m->header)[512]));
-			//writeSectors(m->headerMap[2], 1, &(((u8*)m->header)[1024]));
-			//writeSectors(m->headerMap[3], 1, &(((u8*)m->header)[1024+512]));
+			writeSectors(m->headerMap[0], 1, &(((u8*)m->header)[0]));
+			writeSectors(m->headerMap[1], 1, &(((u8*)m->header)[512]));
+			writeSectors(m->headerMap[2], 1, &(((u8*)m->header)[1024]));
+			writeSectors(m->headerMap[3], 1, &(((u8*)m->header)[1024+512]));
 			break;
 		case 0:
 			NOGBA("writing header !");
